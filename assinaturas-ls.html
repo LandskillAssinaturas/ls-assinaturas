@@ -110,8 +110,8 @@
       <div class="body">
         <h3>Pré‑visualização</h3>
         <div class="preview" id="previewArea">
-          <!-- Pré‑visualização por iframe para evitar bloqueios do browser -->
-          <iframe id="sigFrame" title="Preview Assinatura" style="width:100%; min-height:420px; border:1px solid var(--grid); border-radius:10px; background:#fff;"></iframe></iframe>
+          <!-- Host baseado em DIV para pré‑visualização inline (100% compatível) -->
+          <div id="sigHost" style="width:100%; min-height:420px; border:1px solid var(--grid); border-radius:10px; background:#fff; padding:16px; overflow:auto;"></div>
         </div>
         <div class="btns">
           <button class="primary" id="btnCopyHTML">Copiar HTML da assinatura</button>
@@ -349,10 +349,18 @@
   function render(){
     const s = getState();
     const html = signatureHTML(s);
-    // Pré‑visualização: usa Blob URL para garantir compatibilidade total (GitHub Pages, Chrome, Safari)
-    const frame = qs('sigFrame');
-    if(frame){
-      const blob = new Blob([html], {type:'text/html'});
+    const host = qs('sigHost');
+    if(host){
+      const start = html.indexOf('<table');
+      const end = html.lastIndexOf('</table>');
+      if(start !== -1 && end !== -1){
+        host.innerHTML = html.slice(start, end + 8);
+      } else {
+        host.innerHTML = '<div style="padding:12px;color:#c00;">Erro a gerar a pré‑visualização.</div>';
+      }
+    }
+    qs('htmlOut').textContent = html;
+  });
       const url = URL.createObjectURL(blob);
       const prev = frame.getAttribute('data-src');
       frame.src = url;
