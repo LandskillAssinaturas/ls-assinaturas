@@ -1,230 +1,249 @@
-<!--
-JSON PLACEHOLDERS (exemplo)
-{
-  "full_name": "Filipa Freire",
-  "job_title": "Graphic Designer",
-  "mobile_number": "+351 934 556 060",
-  "photo_url": "https://raw.githubusercontent.com/your-org/your-repo/main/assets/photos/filipa-freire@2x.jpg",
-  "website_url": "https://www.landskill.com",
-  "instagram_url": "https://www.instagram.com/landskill",
-  "linkedin_url": "https://www.linkedin.com/company/landskill",
-  "logo_url": "https://raw.githubusercontent.com/your-org/your-repo/main/assets/brand/landskill-logo@2x.png",
-  "arrow_icon_url": "https://raw.githubusercontent.com/your-org/your-repo/main/assets/icons/arrow-ne@2x.png",
-  "phone_icon_url": "https://raw.githubusercontent.com/your-org/your-repo/main/assets/icons/phone@2x.png",
-  "location_icon_url": "https://raw.githubusercontent.com/your-org/your-repo/main/assets/icons/location@2x.png",
-  "globe_icon_url": "https://raw.githubusercontent.com/your-org/your-repo/main/assets/icons/globe@2x.png",
-  "instagram_icon_url": "https://raw.githubusercontent.com/your-org/your-repo/main/assets/icons/instagram@2x.png",
-  "linkedin_icon_url": "https://raw.githubusercontent.com/your-org/your-repo/main/assets/icons/linkedin@2x.png",
-  "iso_badge_url": "https://raw.githubusercontent.com/your-org/your-repo/main/assets/cert/iso-27017-bsi@2x.png"
-}
-
-SUGESTÃO DE ESTRUTURA DE REPOSITÓRIO (GitHub)
-/
-├─ assintura-landskill.html
-└─ assets/
-   ├─ brand/
-   │  └─ landskill-logo@2x.png        (≈360×80 px arquivo; mostra 180×40)
-   ├─ cert/
-   │  └─ iso-27017-bsi@2x.png         (≈480×340 px arquivo; mostra ~240×170)
-   ├─ icons/
-   │  ├─ arrow-ne@2x.png              (≈112×112; mostra 56×56)
-   │  ├─ phone@2x.png                 (≈96×96; mostra 24–32)
-   │  ├─ location@2x.png              (≈96×96; mostra 24–32)
-   │  ├─ globe@2x.png                 (≈128×128; mostra 32)
-   │  ├─ instagram@2x.png             (≈128×128; mostra 32)
-   │  └─ linkedin@2x.png              (≈128×128; mostra 32)
-   └─ photos/
-      └─ filipa-freire@2x.jpg         (560×560; mostra 280×280)
--->
-
 <!DOCTYPE html>
 <html lang="pt-PT">
-  <head>
-    <meta charset="utf-8">
-    <title>Assinatura Landskill</title>
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="x-apple-disable-message-reformatting">
-  </head>
-  <body style="margin:0; padding:0; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; background:#ffffff;">
-    <!-- CONTAINER EXTERNO (largura fixa 900) -->
-    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="900" align="left" style="border-collapse:collapse; mso-table-lspace:0; mso-table-rspace:0; font-family:'lydia Sans', Arial, Helvetica, sans-serif;">
-      <tr>
-        <!-- COLUNA ESQUERDA (FOTO) -->
-        <td width="300" valign="top" style="padding:20px 10px 10px 0;">
-          <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="300" style="border-collapse:collapse;">
-            <tr>
-              <td align="center" valign="top">
-                <!-- PLACEHOLDER: photo_url -->
-                <img src="https://raw.githubusercontent.com/your-org/your-repo/main/assets/photos/filipa-freire@2x.jpg"
-                     alt="Foto de perfil" title="Foto de perfil"
-                     width="280" height="280"
-                     style="display:block; border:0; outline:none; text-decoration:none; border-radius:140px;">
-              </td>
-            </tr>
-          </table>
-        </td>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Assinaturas – Landskill (Builder)</title>
 
-        <!-- COLUNA CENTRAL (NOME, CARGO, LINHA, CONTACTOS) -->
-        <td width="420" valign="top" style="padding:20px 20px 10px 10px;">
-          <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="420" style="border-collapse:collapse;">
-            <!-- Linha do ícone setinha + nome/cargo -->
-            <tr>
-              <td valign="top" width="56" style="vertical-align:top;">
-                <img src="https://raw.githubusercontent.com/your-org/your-repo/main/assets/icons/arrow-ne@2x.png"
-                     alt="↗" title="Seta Landskill"
-                     width="56" height="56"
-                     style="display:block; border:0; outline:none; text-decoration:none;">
-              </td>
-              <td valign="top" style="padding-left:10px;">
-                <!-- PLACEHOLDER: full_name -->
-                <div style="font-family:'lydia Sans', Arial, Helvetica, sans-serif; font-size:46px; line-height:1.1; font-weight:700; color:#00C6B1; mso-line-height-rule:exactly;">
-                  Filipa Freire
-                </div>
-                <!-- PLACEHOLDER: job_title -->
-                <div style="font-family:'lydia Sans', Arial, Helvetica, sans-serif; font-size:30px; line-height:1.25; font-weight:600; color:#353ED4; mso-line-height-rule:exactly;">
-                  Graphic Designer
-                </div>
+<!-- Lydia Sans (opcional) -->
+<!--
+<style>
+@font-face{
+  font-family:"Lydia Sans";
+  src:url("https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/fonts/LydiaSans.woff2") format("woff2");
+  font-weight:400 800; font-style:normal; font-display:swap;
+}
+</style>
+-->
+<style>
+:root{
+  --ls-blue:#353ED4; --ls-teal:#00C6B1; --txt:#111114; --muted:#586170; --bg:#fafafa;
+}
+body{ font-family:"Lydia Sans","Inter",Arial,sans-serif; margin:0; padding:24px; background:var(--bg); color:#111; }
+.app{ max-width:960px; margin:0 auto; display:grid; gap:24px; grid-template-columns:1.1fr 1fr; }
+.card{ background:#fff; border:1px solid #ddd; border-radius:16px; padding:18px; box-shadow:0 1px 4px rgba(0,0,0,.05); }
+h1{ margin:0 0 8px; font-size:20px; color:#111; }
+label{ display:block; font-size:13px; color:#333; margin:10px 0 4px; }
+input[type="text"],input[type="url"]{ width:100%; padding:10px 12px; border-radius:8px; border:1px solid #ccc; background:#fff; color:#111; }
+.btns{ display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }
+button{ padding:10px 14px; border-radius:8px; border:1px solid #ccc; background:#fff; color:#111; cursor:pointer; font-weight:600; }
+button.primary{ background:var(--ls-blue); border-color:var(--ls-blue); color:#fff; }
+small.hint{ color:#777; display:block; margin-top:4px; }
+.preview-wrap{ display:flex; gap:18px; align-items:flex-start; flex-wrap:wrap; }
+.preview-card{ background:#fff; color:#000; border-radius:12px; padding:16px; }
+.sig-title{ font-size:12px; color:#555; margin-bottom:8px; font-weight:600; }
+.mono{ font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; color:#555; overflow:auto }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="card">
+    <h1>Builder de Assinaturas — Landskill</h1>
+    <label>Nome</label><input id="f-name" type="text" placeholder="Ex.: Filipa Freire">
+    <label>Cargo</label><input id="f-role" type="text" placeholder="Ex.: Graphic Designer">
+    <label>T (telemóvel pessoal)</label><input id="f-tm" type="text" placeholder="Ex.: (+351) 9XX XXX XXX">
+    <label>URL da Foto (PNG círculo 240×240)</label>
+    <input id="f-photo" type="url" placeholder="https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_headshot-nome.png"
+           value="https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_headshot-filipa-freire.png">
 
-                <!-- Linha decorativa com "gap" inicial -->
-                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse; margin-top:8px;">
-                  <tr>
-                    <td width="90" style="height:2px; line-height:2px; font-size:0;">&nbsp;</td>
-                    <td style="background:#1ED6C1; height:2px; line-height:2px; font-size:0;">&nbsp;</td>
-                  </tr>
-                </table>
-              </td>
-            </tr>
+    <div class="btns">
+      <button class="primary" id="btn-render">Gerar / Atualizar</button>
+      <button id="btn-copy">Copiar assinatura</button>
+      <button id="btn-open">Abrir versão standalone</button>
+      <button id="btn-link">Gerar links</button>
+    </div>
+    <small class="hint">Tamanhos: Foto 240×240 → mostra 120×120 | Ícones 48×48 → mostram 24×24 | Logo 320×80 → mostra 160×40 | ISO 160×80 → mostra 120×60.</small>
+  </div>
 
-            <!-- Espaço -->
-            <tr><td colspan="2" style="height:14px; line-height:14px; font-size:0;">&nbsp;</td></tr>
+  <div class="card">
+    <div class="preview-wrap">
+      <div class="preview-card">
+        <div class="sig-title">Pré-visualização</div>
+        <div id="sig"></div>
+      </div>
+      <div class="card" style="min-width:260px">
+        <div style="font-size:12px;color:#555;margin-bottom:8px;">Query string atual</div>
+        <div id="qs" class="mono"></div>
+      </div>
+    </div>
+  </div>
+</div>
 
-            <!-- Contactos -->
-            <tr>
-              <td colspan="2">
-                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;">
-                  <!-- Telemóvel principal -->
-                  <tr>
-                    <td valign="middle" width="30" style="padding:2px 8px 2px 0;">
-                      <img src="https://raw.githubusercontent.com/your-org/your-repo/main/assets/icons/phone@2x.png"
-                           alt="Telefone" title="Telefone"
-                           width="24" height="24" style="display:block; border:0;">
-                    </td>
-                    <td valign="middle" style="font-size:0;">
-                      <span style="font-family:'lydia Sans', Arial, Helvetica, sans-serif; font-size:20px; color:#353ED4; font-weight:700;">T:</span>
-                      <!-- PLACEHOLDER: mobile_number -->
-                      <a href="tel:+351934556060" style="font-family:'lydia Sans', Arial, Helvetica, sans-serif; font-size:22px; color:#000000; font-weight:700; text-decoration:none;">
-                        (+351) 934 556 060
-                      </a>
-                    </td>
-                  </tr>
+<script>
+const BRAND={
+  officePhone:"T (+351) 215 947 950",
+  address:"Rua do Proletariado Nº7 (Lote 1) Carnaxide, Portugal",
+  linkWeb:"https://www.landskill.com/",
+  linkIG:"https://www.instagram.com/landskill_it/",
+  linkLI:"https://www.linkedin.com/company/101356039/",
+  logo:"https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_logo.png",
+  arrow:"https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_seta.png",
+  iso:"https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_certificacao-iso.png",
+  iconWeb:"https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_icon-website.png",
+  iconIG:"https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_icon-instagram.png",
+  iconLI:"https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_icon-linkedin.png",
+  iconPhone:"https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_telemovel.png",
+  iconLoc:"https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_local.png"
+};
 
-                  <!-- Telefone fixo -->
-                  <tr>
-                    <td valign="middle" width="30" style="padding:6px 8px 2px 0;">
-                      <img src="https://raw.githubusercontent.com/your-org/your-repo/main/assets/icons/phone@2x.png"
-                           alt="Telefone fixo" title="Telefone fixo"
-                           width="24" height="24" style="display:block; border:0;">
-                    </td>
-                    <td valign="middle">
-                      <a href="tel:+351214139860" style="font-family:'lydia Sans', Arial, Helvetica, sans-serif; font-size:18px; color:#202020; font-weight:500; text-decoration:none;">
-                        (+351) 214 139 860
-                      </a>
-                    </td>
-                  </tr>
+const $=id=>document.getElementById(id);
+const esc=t=>String(t||"").replace(/[<>&"]/g,s=>({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[s]));
 
-                  <!-- Morada -->
-                  <tr>
-                    <td valign="top" width="30" style="padding:8px 8px 0 0;">
-                      <img src="https://raw.githubusercontent.com/your-org/your-repo/main/assets/icons/location@2x.png"
-                           alt="Localização" title="Localização"
-                           width="24" height="24" style="display:block; border:0;">
-                    </td>
-                    <td valign="top" style="padding-top:8px;">
-                      <span style="font-family:'lydia Sans', Arial, Helvetica, sans-serif; font-size:18px; color:#000000; font-weight:500;">
-                        Rua do Proletariado N°7 (Lote 1) Carnaxide, Portugal
-                      </span>
-                    </td>
-                  </tr>
-                </table>
-              </td>
-            </tr>
+function paramsFromForm(){
+  const d={ name:$('f-name').value.trim(), role:$('f-role').value.trim(), tm:$('f-tm').value.trim(), photo:$('f-photo').value.trim() };
+  return new URLSearchParams(d).toString();
+}
 
-          </table>
-        </td>
+/* ============== TEMPLATE AJUSTADO ============== */
+function signatureHTML(d){
+  const name=d.name||"", role=d.role||"", tm=d.tm||"", photo=d.photo||"";
+  const W_LOGO=160,H_LOGO=40, W_PHOTO=120,H_PHOTO=120, W_ICON=24,H_ICON=24, W_ISO=120,H_ISO=60, W_ARROW=24,H_ARROW=24;
 
-        <!-- COLUNA DIREITA (MARCA + ISO + SOCIAIS) -->
-        <td width="180" valign="top" style="padding:20px 0 10px 0;">
-          <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="180" style="border-collapse:collapse;">
-            <!-- Slogan pequeno -->
-            <tr>
-              <td align="right" style="font-family:'lydia Sans', Arial, Helvetica, sans-serif; font-size:12px; color:#000000; font-weight:600; padding:0 10px 6px 10px;">
-                Skills to Scale
-              </td>
-            </tr>
-            <!-- Logo alinhado à direita -->
-            <tr>
-              <td align="right" style="padding:0 10px 8px 10px;">
-                <img src="https://raw.githubusercontent.com/your-org/your-repo/main/assets/brand/landskill-logo@2x.png"
-                     alt="LANDSKILL" title="LANDSKILL"
-                     width="180" height="40" style="display:block; border:0;">
-              </td>
-            </tr>
+  return `
+<!-- BEGIN: LANDSKILL signature -->
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-family:'Lydia Sans',Arial,sans-serif;color:#111114;width:100%;max-width:900px;">
+  <tr>
+    <!-- COLUNA ESQUERDA: HEADSHOT -->
+    <td valign="top" style="padding:0 16px 0 0;">
+      ${photo?`<img src="${photo}" width="${W_PHOTO}" height="${H_PHOTO}" alt="" style="display:block;border:0;height:auto;border-radius:999px;" />`:``}
+    </td>
 
-            <!-- Espaço flexível antes do rodapé da coluna direita -->
-            <tr><td style="height:140px; line-height:140px; font-size:0;">&nbsp;</td></tr>
+    <!-- COLUNA CENTRAL: SETA + NOME/CARGO + LINHA + CONTACTOS -->
+    <td valign="top" style="padding:0 24px 0 0;">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td valign="middle" style="padding:0 10px 0 0;">
+            <img src="${BRAND.arrow}" width="${W_ARROW}" height="${H_ARROW}" alt="" style="display:block;border:0;height:auto;" />
+          </td>
+          <td valign="middle">
+            <div style="font-size:22px;line-height:1.2;font-weight:800;color:#00C6B1;">${esc(name)}</div>
+            <div style="font-size:14px;line-height:1.35;font-weight:800;color:#353ED4;margin-top:2px;">${esc(role)}</div>
+          </td>
+        </tr>
+      </table>
 
-            <!-- Selo ISO (canto inferior direito) -->
-            <tr>
-              <td align="right" style="padding:6px 10px 4px 10px;">
-                <img src="https://raw.githubusercontent.com/your-org/your-repo/main/assets/cert/iso-27017-bsi@2x.png"
-                     alt="BSI ISO/IEC 27017" title="BSI ISO/IEC 27017"
-                     width="240" height="170" style="display:block; border:0;">
-              </td>
-            </tr>
+      <div style="height:12px;"></div>
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%;">
+        <tr><td style="height:4px;background:linear-gradient(90deg,#00C6B1 0%,#00C6B1 45%,#cfeeea 46%,#cfeeea 100%);border-radius:2px;"></td></tr>
+      </table>
+      <div style="height:8px;"></div>
 
-            <!-- Ícones sociais sob o selo -->
-            <tr>
-              <td align="right" style="padding:6px 6px 0 6px;">
-                <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
-                  <tr>
-                    <td style="padding-left:8px;">
-                      <a href="https://www.landskill.com" target="_blank" rel="noopener" title="Website">
-                        <img src="https://raw.githubusercontent.com/your-org/your-repo/main/assets/icons/globe@2x.png"
-                             alt="Website" width="32" height="32" style="display:block; border:0;">
-                      </a>
-                    </td>
-                    <td style="padding-left:12px;">
-                      <a href="https://www.instagram.com/landskill" target="_blank" rel="noopener" title="Instagram">
-                        <img src="https://raw.githubusercontent.com/your-org/your-repo/main/assets/icons/instagram@2x.png"
-                             alt="Instagram" width="32" height="32" style="display:block; border:0;">
-                      </a>
-                    </td>
-                    <td style="padding-left:12px;">
-                      <a href="https://www.linkedin.com/company/landskill" target="_blank" rel="noopener" title="LinkedIn">
-                        <img src="https://raw.githubusercontent.com/your-org/your-repo/main/assets/icons/linkedin@2x.png"
-                             alt="LinkedIn" width="32" height="32" style="display:block; border:0;">
-                      </a>
-                    </td>
-                  </tr>
-                </table>
-              </td>
-            </tr>
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="font-size:13px;color:#111114">
+        ${tm?`
+        <tr>
+          <td valign="middle" style="padding:6px 10px 0 0;"><img src="${BRAND.iconPhone}" width="${W_ICON}" height="${H_ICON}" alt="" style="display:block;border:0;height:auto;" /></td>
+          <td valign="middle" style="padding:6px 0 0 0;"><span style="font-weight:700;">T:</span> ${esc(tm)}</td>
+        </tr>`:""}
+        <tr>
+          <td valign="middle" style="padding:10px 10px 0 0;"><img src="${BRAND.iconPhone}" width="${W_ICON}" height="${H_ICON}" alt="" style="display:block;border:0;height:auto;" /></td>
+          <td valign="middle" style="padding:10px 0 0 0;"><span style="font-weight:700;">T:</span> (+351) 215 947 950</td>
+        </tr>
+        <tr>
+          <td valign="top" style="padding:10px 10px 0 0;"><img src="${BRAND.iconLoc}" width="${W_ICON}" height="${H_ICON}" alt="" style="display:block;border:0;height:auto;" /></td>
+          <td valign="top" style="padding:10px 0 0 0;">${BRAND.address}</td>
+        </tr>
+      </table>
+    </td>
 
-          </table>
-        </td>
-      </tr>
+    <!-- COLUNA DIREITA: LOGO + LINHA + ISO + ÍCONES -->
+    <td valign="top" style="padding:0; white-space:nowrap;">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+        <tr>
+          <td style="padding:0 0 8px 0;">
+            <img src="${BRAND.logo}" width="${W_LOGO}" height="${H_LOGO}" alt="LANDSKILL" style="display:block;border:0;height:auto;" />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%;">
+              <tr><td style="height:4px;background:#cfeeea;border-radius:2px;"></td></tr>
+            </table>
+          </td>
+        </tr>
+        <tr><td style="height:12px;"></td></tr>
+        <tr>
+          <td>
+            <img src="${BRAND.iso}" width="${W_ISO}" height="${H_ISO}" alt="ISO 27017" style="display:block;border:0;height:auto;" />
+          </td>
+        </tr>
+        <tr><td style="height:10px;"></td></tr>
+        <tr>
+          <td>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td style="padding-right:10px;">
+                  <a href="${BRAND.linkWeb}" target="_blank" rel="noopener">
+                    <img src="${BRAND.iconWeb}" width="${W_ICON}" height="${H_ICON}" alt="Website" style="display:block;border:0;height:auto;" />
+                  </a>
+                </td>
+                <td style="padding-right:10px;">
+                  <a href="${BRAND.linkIG}" target="_blank" rel="noopener">
+                    <img src="${BRAND.iconIG}" width="${W_ICON}" height="${H_ICON}" alt="Instagram" style="display:block;border:0;height:auto;" />
+                  </a>
+                </td>
+                <td>
+                  <a href="${BRAND.linkLI}" target="_blank" rel="noopener">
+                    <img src="${BRAND.iconLI}" width="${W_ICON}" height="${H_ICON}" alt="LinkedIn" style="display:block;border:0;height:auto;" />
+                  </a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr><td style="height:10px;"></td></tr>
+        <tr><td style="font-size:12px;color:#586170;">landskill.com</td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- END: LANDSKILL signature -->
+`.trim();
+}
 
-      <!-- SEPARADOR HORIZONTAL (atravessa toda a largura, logo abaixo da área nome/cargo) -->
-      <tr>
-        <td colspan="3" style="padding-top:8px;">
-          <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;">
-            <tr>
-              <td style="height:2px; line-height:2px; font-size:0; background:#00C6B1;">&nbsp;</td>
-            </tr>
-          </table>
-        </td>
-      </tr>
+/* ===== UI ===== */
+function render(){
+  const qs=paramsFromForm();
+  $('qs').textContent='?'+qs;
+  const d=Object.fromEntries(new URLSearchParams(qs));
+  if(!d.photo) d.photo="https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_headshot-filipa-freire.png";
+  $('sig').innerHTML=signatureHTML(d);
+}
 
-    </table>
-  </body>
+$('btn-render').addEventListener('click',e=>{e.preventDefault();render();});
+$('btn-copy').addEventListener('click',async()=>{
+  const html=$('sig').innerHTML;
+  try{
+    const blob=new Blob([html],{type:"text/html"});
+    await navigator.clipboard.write([new ClipboardItem({"text/html":blob})]);
+    alert('Assinatura copiada!');
+  }catch{
+    const ta=document.createElement('textarea');ta.value=html;document.body.appendChild(ta);
+    ta.select();document.execCommand('copy');ta.remove();alert('HTML copiado (fallback).');
+  }
+});
+$('btn-open').addEventListener('click',()=>{
+  const qs=paramsFromForm();
+  const html=`<!doctype html><meta charset="utf-8"><title>Assinatura</title>${signatureHTML(Object.fromEntries(new URLSearchParams(qs)))}`;
+  const url=URL.createObjectURL(new Blob([html],{type:"text/html"}));
+  window.open(url,"_blank","noopener");
+});
+$('btn-link').addEventListener('click',()=>{
+  const qs=paramsFromForm();
+  const builder=`${location.origin}${location.pathname}?${qs}`;
+  const solo=`${location.origin}${location.pathname}?${qs}&solo=1`;
+  prompt("Link do builder (preenchido):",builder);
+  prompt("Link standalone (para enviar ao colaborador):",solo);
+});
+render();
+(function(){
+  const p=new URLSearchParams(location.search);
+  if(p.get('solo')==='1'){
+    document.body.style.background="#fff"; document.body.style.color="#000";
+    const d=Object.fromEntries(p.entries());
+    if(!d.photo) d.photo="https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_headshot-filipa-freire.png";
+    document.body.innerHTML=signatureHTML(d);
+  }
+})();
+</script>
+</body>
 </html>
