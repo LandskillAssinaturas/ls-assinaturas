@@ -1,4 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Assinaturas – Landskill (Builder)</title>
+
+<style>
+:root{
+  --ls-blue:#353ED4;
+  --ls-teal:#00C6B1;
+  --txt:#111114;
+  --muted:#586170;
+  --bg:#fafafa;
+}
+body{
+  font-family:"Lydia Sans","Inter",Arial,sans-serif;
+  margin:0;padding:24px;background:var(--bg);color:#111;
+}
+.app{max-width:960px;margin:0 auto;display:grid;gap:24px;grid-template-columns:1.1fr 1fr;}
+.card{background:#fff;border:1px solid #ddd;border-radius:16px;padding:18px;box-shadow:0 1px 4px rgba(0,0,0,.05);}
+h1{margin:0 0 8px;font-size:20px;color:#111;}
+label{display:block;font-size:13px;color:#333;margin:10px 0 4px;}
+input[type="text"],input[type="url"]{width:100%;padding:10px 12px;border-radius:8px;border:1px solid #ccc;background:#fff;color:#111;}
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;}
+button{padding:10px 14px;border-radius:8px;border:1px solid #ccc;background:#fff;color:#111;cursor:pointer;font-weight:600;}
+button.primary{background:var(--ls-blue);border-color:var(--ls-blue);color:#fff;}
+small.hint{color:#777;display:block;margin-top:4px;}
+.preview-wrap{display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap;}
+.preview-card{background:#fff;color:#000;border-radius:12px;padding:16px;}
+.sig-title{font-size:12px;color:#555;margin-bottom:8px;font-weight:600;}
+.mono{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;color:#555;overflow:auto}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <div class="card">
+    <h1>Builder de Assinaturas — Landskill</h1>
+    <label>Nome</label><input id="f-name" type="text" placeholder="Ex.: Filipa Freire">
+    <label>Cargo</label><input id="f-role" type="text" placeholder="Ex.: Graphic Designer">
+    <label>T (telemóvel pessoal)</label><input id="f-tm" type="text" placeholder="Ex.: (+351) 9XX XXX XXX">
+    <label>URL da Foto (PNG círculo 240×240)</label>
+    <input id="f-photo" type="url" placeholder="https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_headshot-nome.png"
+           value="https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_headshot-filipa-freire.png">
+
+    <div class="btns">
+      <button class="primary" id="btn-render">Gerar / Atualizar</button>
+      <button id="btn-copy">Copiar assinatura</button>
+      <button id="btn-open">Abrir versão standalone</button>
+      <button id="btn-link">Gerar links</button>
+    </div>
+    <small class="hint">Tamanhos: Foto 240×240 → mostra 120×120 | Ícones 48×48 → mostram 24×24 | Logo 320×80 → mostra 160×40 | ISO 160×80 → mostra 120×60.</small>
+  </div>
+
+  <div class="card">
+    <div class="preview-wrap">
+      <div class="preview-card">
+        <div class="sig-title">Pré-visualização</div>
+        <div id="sig"></div>
+      </div>
+      <div class="card" style="min-width:260px">
+        <div style="font-size:12px;color:#555;margin-bottom:8px;">Query string atual</div>
+        <div id="qs" class="mono"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
+const BRAND={
+  officePhone:"(+351) 215 947 950",
+  address:"Rua do Proletariado Nº7 (Lote 1) Carnaxide, Portugal",
+  linkWeb:"https://www.landskill.com/",
+  linkIG:"https://www.instagram.com/landskill_it/",
+  linkLI:"https://www.linkedin.com/company/101356039/",
+  logo:"https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_logo.png",
+  arrow:"https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_seta.png",
+  iso:"https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_certificacao-iso.png",
+  iconWeb:"https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_icon-website.png",
+  iconIG:"https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_icon-instagram.png",
+  iconLI:"https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_icon-linkedin.png",
+  iconPhone:"https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_telemovel.png",
+  iconLoc:"https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_local.png"
+};
+
+const $=id=>document.getElementById(id);
+const esc=t=>String(t||"").replace(/[<>&"]/g,s=>({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[s]));
+
+function paramsFromForm(){
+  const d={ name:$('f-name').value.trim(), role:$('f-role').value.trim(), tm:$('f-tm').value.trim(), photo:$('f-photo').value.trim() };
+  return new URLSearchParams(d).toString();
+}
+
+/* ============== TEMPLATE FINAL ============== */
 function signatureHTML(d){
   const name=d.name||"", role=d.role||"", tm=d.tm||"", photo=d.photo||"";
   const W_PHOTO=120,H_PHOTO=120, W_ARROW=24,H_ARROW=24, W_LOGO=160,H_LOGO=40, W_ICON=24,H_ICON=24, W_ISO=120,H_ISO=60;
@@ -6,59 +100,51 @@ function signatureHTML(d){
   return `
 <!-- BEGIN: LANDSKILL signature -->
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-family:'Lydia Sans',Arial,sans-serif;color:#111114;width:100%;max-width:900px;">
-  <!-- LINHA 1: FOTO | SETA | NOME/CARGO | LOGO -->
   <tr>
+    <!-- FOTO -->
     <td valign="top" style="padding:0 16px 0 0;">
       ${photo?`<img src="${photo}" width="${W_PHOTO}" height="${H_PHOTO}" alt="" style="display:block;border:0;height:auto;border-radius:999px;" />`:``}
     </td>
+    <!-- SETA -->
     <td valign="top" style="padding:8px 12px 0 0;">
       <img src="${BRAND.arrow}" width="${W_ARROW}" height="${H_ARROW}" alt="" style="display:block;border:0;height:auto;" />
     </td>
+    <!-- NOME + CARGO -->
     <td valign="top" style="padding:0 24px 0 0;">
       <div style="font-size:22px;line-height:1.2;font-weight:800;color:#00C6B1;">${esc(name)}</div>
       <div style="font-size:14px;line-height:1.35;font-weight:800;color:#353ED4;margin-top:2px;">${esc(role)}</div>
     </td>
+    <!-- LOGO -->
     <td valign="top" style="padding:0;">
       <img src="${BRAND.logo}" width="${W_LOGO}" height="${H_LOGO}" alt="LANDSKILL" style="display:block;border:0;height:auto;" />
     </td>
   </tr>
 
-  <!-- LINHA 2: BARRA VERDE CONTÍNUA (de margem a margem) -->
+  <!-- LINHA VERDE CONTÍNUA -->
   <tr>
     <td colspan="4" style="padding:12px 0 0 0;">
       <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%;border-collapse:collapse;">
         <tr>
-          <td style="
-            height:4px;
-            background:linear-gradient(90deg, #00C6B1 0%, #00C6B1 32%, #CFEDEA 32%, #CFEDEA 100%);
-            border-radius:2px;
-          "></td>
+          <td style="height:4px;background:linear-gradient(90deg,#00C6B1 0%,#00C6B1 32%,#CFEDEA 32%,#CFEDEA 100%);border-radius:2px;"></td>
         </tr>
       </table>
     </td>
   </tr>
 
-  <!-- LINHA 3: CONTACTOS (centro) | ISO + ÍCONES (direita) -->
+  <!-- CONTACTOS + ISO/ÍCONES -->
   <tr>
     <td style="padding:0 16px 0 0;"></td>
     <td style="padding:0 12px 0 0;"></td>
 
-    <!-- Contactos -->
     <td valign="top" style="padding:8px 24px 0 0;">
       <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="font-size:13px;color:#111114;">
         ${tm?`
-        <tr>
-          <td valign="middle" style="padding:6px 0 0 0;">
-            <span style="font-weight:700;">T:</span> ${esc(tm)}
-          </td>
-        </tr>`:""}
+        <tr><td valign="middle" style="padding:6px 0 0 0;"><span style="font-weight:700;">T:</span> ${esc(tm)}</td></tr>`:""}
         <tr>
           <td valign="middle" style="padding:10px 0 0 0;">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0">
               <tr>
-                <td style="padding-right:10px;">
-                  <img src="${BRAND.iconPhone}" width="${W_ICON}" height="${H_ICON}" alt="" style="display:block;border:0;height:auto;" />
-                </td>
+                <td style="padding-right:10px;"><img src="${BRAND.iconPhone}" width="${W_ICON}" height="${H_ICON}" alt="" style="display:block;border:0;height:auto;" /></td>
                 <td>${BRAND.officePhone}</td>
               </tr>
             </table>
@@ -68,9 +154,7 @@ function signatureHTML(d){
           <td valign="top" style="padding:10px 0 0 0;">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0">
               <tr>
-                <td style="padding-right:10px;">
-                  <img src="${BRAND.iconLoc}" width="${W_ICON}" height="${H_ICON}" alt="" style="display:block;border:0;height:auto;" />
-                </td>
+                <td style="padding-right:10px;"><img src="${BRAND.iconLoc}" width="${W_ICON}" height="${H_ICON}" alt="" style="display:block;border:0;height:auto;" /></td>
                 <td>${BRAND.address}</td>
               </tr>
             </table>
@@ -79,32 +163,17 @@ function signatureHTML(d){
       </table>
     </td>
 
-    <!-- Direita: ISO + Social -->
-    <td valign="top" style="padding:8px 0 0 0; white-space:nowrap;">
+    <td valign="top" style="padding:8px 0 0 0;white-space:nowrap;">
       <table role="presentation" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><img src="${BRAND.iso}" width="${W_ISO}" height="${H_ISO}" alt="ISO 27017" style="display:block;border:0;height:auto;" /></td>
-        </tr>
+        <tr><td><img src="${BRAND.iso}" width="${W_ISO}" height="${H_ISO}" alt="ISO 27017" style="display:block;border:0;height:auto;" /></td></tr>
         <tr><td style="height:10px;"></td></tr>
         <tr>
           <td>
             <table role="presentation" cellpadding="0" cellspacing="0" border="0">
               <tr>
-                <td style="padding-right:10px;">
-                  <a href="${BRAND.linkWeb}" target="_blank" rel="noopener">
-                    <img src="${BRAND.iconWeb}" width="${W_ICON}" height="${H_ICON}" alt="Website" style="display:block;border:0;height:auto;" />
-                  </a>
-                </td>
-                <td style="padding-right:10px;">
-                  <a href="${BRAND.linkIG}" target="_blank" rel="noopener">
-                    <img src="${BRAND.iconIG}" width="${W_ICON}" height="${H_ICON}" alt="Instagram" style="display:block;border:0;height:auto;" />
-                  </a>
-                </td>
-                <td>
-                  <a href="${BRAND.linkLI}" target="_blank" rel="noopener">
-                    <img src="${BRAND.iconLI}" width="${W_ICON}" height="${H_ICON}" alt="LinkedIn" style="display:block;border:0;height:auto;" />
-                  </a>
-                </td>
+                <td style="padding-right:10px;"><a href="${BRAND.linkWeb}" target="_blank"><img src="${BRAND.iconWeb}" width="${W_ICON}" height="${H_ICON}" alt="Website" style="display:block;border:0;height:auto;" /></a></td>
+                <td style="padding-right:10px;"><a href="${BRAND.linkIG}" target="_blank"><img src="${BRAND.iconIG}" width="${W_ICON}" height="${H_ICON}" alt="Instagram" style="display:block;border:0;height:auto;" /></a></td>
+                <td><a href="${BRAND.linkLI}" target="_blank"><img src="${BRAND.iconLI}" width="${W_ICON}" height="${H_ICON}" alt="LinkedIn" style="display:block;border:0;height:auto;" /></a></td>
               </tr>
             </table>
           </td>
@@ -116,4 +185,51 @@ function signatureHTML(d){
 <!-- END: LANDSKILL signature -->
 `.trim();
 }
+
+/* ===== UI ===== */
+function render(){
+  const qs=paramsFromForm();
+  $('qs').textContent='?'+qs;
+  const d=Object.fromEntries(new URLSearchParams(qs));
+  if(!d.photo)d.photo="https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_headshot-filipa-freire.png";
+  $('sig').innerHTML=signatureHTML(d);
+}
+
+$('btn-render').addEventListener('click',e=>{e.preventDefault();render();});
+$('btn-copy').addEventListener('click',async()=>{
+  const html=$('sig').innerHTML;
+  try{
+    const blob=new Blob([html],{type:"text/html"});
+    await navigator.clipboard.write([new ClipboardItem({"text/html":blob})]);
+    alert('Assinatura copiada!');
+  }catch{
+    const ta=document.createElement('textarea');ta.value=html;document.body.appendChild(ta);
+    ta.select();document.execCommand('copy');ta.remove();alert('HTML copiado (fallback).');
+  }
+});
+$('btn-open').addEventListener('click',()=>{
+  const qs=paramsFromForm();
+  const html=`<!doctype html><meta charset="utf-8"><title>Assinatura</title>${signatureHTML(Object.fromEntries(new URLSearchParams(qs)))}`;
+  const url=URL.createObjectURL(new Blob([html],{type:"text/html"}));
+  window.open(url,"_blank","noopener");
+});
+$('btn-link').addEventListener('click',()=>{
+  const qs=paramsFromForm();
+  const builder=`${location.origin}${location.pathname}?${qs}`;
+  const solo=`${location.origin}${location.pathname}?${qs}&solo=1`;
+  prompt("Link do builder (preenchido):",builder);
+  prompt("Link standalone (para enviar ao colaborador):",solo);
+});
+render();
+(function(){
+  const p=new URLSearchParams(location.search);
+  if(p.get('solo')==='1'){
+    document.body.style.background="#fff";document.body.style.color="#000";
+    const d=Object.fromEntries(p.entries());
+    if(!d.photo)d.photo="https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_headshot-filipa-freire.png";
+    document.body.innerHTML=signatureHTML(d);
+  }
+})();
 </script>
+</body>
+</html>
