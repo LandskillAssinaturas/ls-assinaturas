@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-PT">
->
+<head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Assinaturas – Landskill (Builder)</title>
@@ -97,7 +97,7 @@ function signatureHTML(d){
 
   return `
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-family:'Lydia Sans',Arial,sans-serif;color:#111114;width:100%;max-width:900px;">
-  <tr>
+  <tr style="line-height:1; font-size:0;">
     <td valign="top" style="padding:0 16px 0 0;">
       ${photo?`<img src="${photo}" width="${W_PHOTO}" height="${H_PHOTO}" style="display:block;border-radius:999px;">`:``}
     </td>
@@ -105,21 +105,21 @@ function signatureHTML(d){
       <img src="${BRAND.arrow}" width="${W_ARROW}" height="${H_ARROW}" style="display:block;">
     </td>
     <td valign="top" style="padding:0 24px 0 0;">
-      <div style="font-size:22px;line-height:1.1;font-weight:800;color:#00C6B1;">${esc(name)}</div>
-      <div style="font-size:14px;line-height:1.1;font-weight:800;color:#353ED4;">${esc(role)}</div>
+      <div style="font-size:22px;line-height:1;font-weight:800;color:#00C6B1;display:block;margin:0;">${esc(name)}</div>
+      <div style="font-size:14px;line-height:1;font-weight:800;color:#353ED4;display:block;margin:0;">${esc(role)}</div>
     </td>
     <td valign="top" style="padding:0;">
       <img src="${BRAND.logo}" width="${W_LOGO}" height="${H_LOGO}" style="display:block;">
     </td>
   </tr>
 
-  <!-- LINHA VERDE: sem qualquer altura extra -->
+  <!-- LINHA VERDE (sem espaço extra) -->
   <tr style="height:0; line-height:0; font-size:0;">
     <td colspan="2" style="height:0; line-height:0; font-size:0; padding:0;"></td>
     <td colspan="2" style="height:0; line-height:0; font-size:0; padding:0;">
       <table role="presentation" cellpadding="0" cellspacing="0" border="0"
-        style="width:100%;border-collapse:collapse;margin-top:0;">
-        <tr>
+        style="width:100%;border-collapse:collapse;margin-top:0;line-height:0;font-size:0;">
+        <tr style="height:0; line-height:0; font-size:0;">
           <td style="height:4px;background:linear-gradient(90deg,#00C6B1 0%,#00C6B1 32%,#CFEDEA 32%,#CFEDEA 100%);border-radius:2px;"></td>
         </tr>
       </table>
