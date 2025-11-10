@@ -38,7 +38,7 @@ small.hint{color:#777; display:block; margin-top:4px;}
     <h1>Builder de Assinaturas — Landskill</h1>
     <label>Nome</label><input id="f-name" type="text" placeholder="Ex.: Filipa Freire">
     <label>Cargo</label><input id="f-role" type="text" placeholder="Ex.: Graphic Designer">
-    <label>T (telemóvel pessoal)</label><input id="f-tm" type="text" placeholder="Ex.: (+351) 9XX XXX XXX">
+    <label>T (telemóvel pessoal)</label><input id="f-tm" type="text" placeholder="Ex.: (+351) 9XX XXX XXX)">
     <label>URL da Foto (PNG círculo 240×240)</label>
     <input id="f-photo" type="url" value="https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_headshot-filipa-freire.png">
 
@@ -105,7 +105,7 @@ function signatureHTML(d){
     </td>
 
     <td valign="top" style="padding:8px 20px 0 0;">
-      <img src="${BRAND.arrow}" width="${W_ARROW}" height="${H_ARROW}" style="display:block;" alt="">
+      <img src="${BRAND.arrow}" width="${W_ARROW}" height="${W_ARROW}" style="display:block;" alt="">
     </td>
 
     <td valign="top" style="padding:0 24px 0 0;">
@@ -118,8 +118,12 @@ function signatureHTML(d){
     </td>
   </tr>
 
-  <!-- ROW 2: linha verde alinhada com nome/cargo/contactos -->
+  <!-- ROW 2: linha verde – começa no eixo do Nome/Cargo e vai até ao fim -->
   <tr style="height:0; line-height:0; font-size:0;">
+    <!-- célula da SETA (vazia): mantém a coluna 2 para que a linha não comece aqui -->
+    <td style="height:0; line-height:0; font-size:0; padding:0;"></td>
+
+    <!-- a linha ocupa as colunas Nome/Cargo + Logo (colspan=2) -->
     <td colspan="2" style="height:0; line-height:0; font-size:0; padding:6px 0 4px 0;">
       <table role="presentation" cellpadding="0" cellspacing="0" border="0"
              style="width:100%;border-collapse:collapse;margin-top:0;line-height:0;font-size:0;">
@@ -132,7 +136,10 @@ function signatureHTML(d){
 
   <!-- ROW 3: contactos -->
   <tr>
+    <!-- coluna da seta serve de espaçador nesta linha -->
     <td style="padding:0 12px 0 0;"></td>
+
+    <!-- contactos (alinha com Nome/Cargo acima) -->
     <td valign="top" style="padding:8px 24px 0 0;">
       <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="font-size:13px;color:#111114;">
         ${tm?`<tr><td style="font-size:14px;font-weight:700;">T: ${esc(tm)}</td></tr>`:""}
@@ -140,7 +147,7 @@ function signatureHTML(d){
           <td style="padding-top:6px;">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0">
               <tr>
-                <td style="padding-right:10px;"><img src="${BRAND.iconPhone}" width="${W_ICON}" height="${H_ICON}" style="display:block;" alt=""></td>
+                <td style="padding-right:10px;"><img src="${BRAND.iconPhone}" width="${W_ICON}" height="${W_ICON}" style="display:block;" alt=""></td>
                 <td style="font-size:13px;font-weight:400;">${BRAND.officePhone}</td>
               </tr>
             </table>
@@ -150,7 +157,7 @@ function signatureHTML(d){
           <td style="padding-top:6px;">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0">
               <tr>
-                <td style="padding-right:10px;"><img src="${BRAND.iconLoc}" width="${W_ICON}" height="${H_ICON}" style="display:block;" alt=""></td>
+                <td style="padding-right:10px;"><img src="${BRAND.iconLoc}" width="${W_ICON}" height="${W_ICON}" style="display:block;" alt=""></td>
                 <td style="font-size:13px;font-weight:400;">${BRAND.address}</td>
               </tr>
             </table>
@@ -159,6 +166,7 @@ function signatureHTML(d){
       </table>
     </td>
 
+    <!-- ISO + ícones (continuação do eixo da direita) -->
     <td valign="top" style="padding:8px 0 0 0; white-space:nowrap;">
       <table role="presentation" cellpadding="0" cellspacing="0" border="0">
         <tr><td><img src="${BRAND.iso}" width="${W_ISO}" height="${H_ISO}" style="display:block;" alt="ISO 27017"></td></tr>
@@ -167,9 +175,9 @@ function signatureHTML(d){
           <td>
             <table role="presentation" cellpadding="0" cellspacing="0" border="0">
               <tr>
-                <td style="padding-right:10px;"><a href="${BRAND.linkWeb}" target="_blank" rel="noopener"><img src="${BRAND.iconWeb}" width="${W_ICON}" height="${H_ICON}" style="display:block;" alt="Website"></a></td>
-                <td style="padding-right:10px;"><a href="${BRAND.linkIG}" target="_blank" rel="noopener"><img src="${BRAND.iconIG}" width="${W_ICON}" height="${H_ICON}" style="display:block;" alt="Instagram"></a></td>
-                <td><a href="${BRAND.linkLI}" target="_blank" rel="noopener"><img src="${BRAND.iconLI}" width="${W_ICON}" height="${H_ICON}" style="display:block;" alt="LinkedIn"></a></td>
+                <td style="padding-right:10px;"><a href="${BRAND.linkWeb}" target="_blank" rel="noopener"><img src="${BRAND.iconWeb}" width="${W_ICON}" height="${W_ICON}" style="display:block;" alt="Website"></a></td>
+                <td style="padding-right:10px;"><a href="${BRAND.linkIG}" target="_blank" rel="noopener"><img src="${BRAND.iconIG}" width="${W_ICON}" height="${W_ICON}" style="display:block;" alt="Instagram"></a></td>
+                <td><a href="${BRAND.linkLI}" target="_blank" rel="noopener"><img src="${BRAND.iconLI}" width="${W_ICON}" height="${W_ICON}" style="display:block;" alt="LinkedIn"></a></td>
               </tr>
             </table>
           </td>
