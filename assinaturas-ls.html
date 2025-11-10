@@ -110,7 +110,8 @@
       <div class="body">
         <h3>Pré‑visualização</h3>
         <div class="preview" id="previewArea">
-          <!-- A assinatura renderiza aqui -->
+          <!-- Pré‑visualização por iframe para evitar bloqueios do browser -->
+          <iframe id="sigFrame" title="Preview Assinatura" sandbox="allow-top-navigation-by-user-activation" style="width:100%; min-height:420px; border:1px solid var(--grid); border-radius:10px; background:#fff;"></iframe>
         </div>
         <div class="btns">
           <button class="primary" id="btnCopyHTML">Copiar HTML da assinatura</button>
@@ -346,20 +347,24 @@
   }
 
   function render(){
-(){
     const s = getState();
     const html = signatureHTML(s);
-    // Pré‑visualização
-    qs('previewArea').innerHTML = html;
+    // Pré‑visualização dentro de iframe (evita bloqueios do browser)
+    const frame = qs('sigFrame');
+    if(frame){ frame.srcdoc = html; }
     qs('htmlOut').textContent = html;
   }
 
   // Partilhável: gera link com query params
   function buildShareURL(){
     const s = getState();
-    const url = new URL(window.location.href);
+    // constrói a partir da origem e path atuais (evita about:blank)
+    const base = window.location.origin + window.location.pathname;
+    const url = new URL(base);
     url.searchParams.set('view','signature');
     fields.forEach(k=>{ if(s[k]) url.searchParams.set(k, s[k]); });
+    return url.toString();
+  });
     return url.toString();
   }
 
@@ -372,9 +377,16 @@
   }
 
   function copyText(txt){
-    navigator.clipboard.writeText(txt).then(()=>{
-      toast('Copiado!');
-    }).catch(()=>{
+    if(navigator.clipboard && window.isSecureContext){
+      navigator.clipboard.writeText(txt).then(()=>toast('Copiado!')).catch(()=>fallbackCopy(txt));
+    } else { fallbackCopy(txt); }
+  }
+  function fallbackCopy(text){
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.focus(); ta.select();
+    try{ document.execCommand('copy'); toast('Copiado!'); }catch(e){ alert('Não consegui copiar automaticamente. Podes copiar manualmente do bloco de código.'); }
+    ta.remove();
+  }).catch(()=>{
       alert('Copiar falhou – o teu navegador bloqueou.');
     });
   }
@@ -400,6 +412,12 @@
 
   qs('btnOpenShare').addEventListener('click', ()=>{
     const u = buildShareURL();
+    const w = window.open(u, '_blank');
+    if(!w || w.closed || typeof w.closed==='undefined'){
+      // popup bloqueado: fallback navegação direta
+      window.location.href = u;
+    }
+  });
     window.open(u, '_blank');
   });
 
