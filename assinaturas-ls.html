@@ -123,7 +123,7 @@ function signatureHTML(d){
   <!-- LINHA VERDE (começa alinhada com o nome) -->
   <tr>
     <td colspan="2"></td>
-    <td colspan="2" style="padding:12px 0 0 0;">
+    <td colspan="2" style="padding:6px 0 0 0;">
       <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%;border-collapse:collapse;">
         <tr>
           <td style="height:4px;background:linear-gradient(90deg,#00C6B1 0%,#00C6B1 32%,#CFEDEA 32%,#CFEDEA 100%);border-radius:2px;"></td>
@@ -137,25 +137,31 @@ function signatureHTML(d){
     <td style="padding:0 16px 0 0;"></td>
     <td style="padding:0 12px 0 0;"></td>
 
-    <td valign="top" style="padding:8px 24px 0 0;">
+    <td valign="top" style="padding:6px 24px 0 0;">
       <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="font-size:13px;color:#111114;">
         ${tm?`
-        <tr><td valign="middle" style="padding:6px 0 0 0;"><span style="font-weight:700;">T:</span> ${esc(tm)}</td></tr>`:""}
         <tr>
-          <td valign="middle" style="padding:10px 0 0 0;">
+          <td valign="middle" style="padding:4px 0 0 0;font-size:14px;font-weight:700;">T: ${esc(tm)}</td>
+        </tr>`:""}
+        <tr>
+          <td valign="middle" style="padding:8px 0 0 0;">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0">
               <tr>
-                <td style="padding-right:10px;"><img src="${BRAND.iconPhone}" width="${W_ICON}" height="${H_ICON}" alt="" style="display:block;border:0;height:auto;" /></td>
-                <td>${BRAND.officePhone}</td>
+                <td style="padding-right:10px;">
+                  <img src="${BRAND.iconPhone}" width="${W_ICON}" height="${H_ICON}" alt="" style="display:block;border:0;height:auto;" />
+                </td>
+                <td style="font-size:14px;font-weight:700;">${BRAND.officePhone}</td>
               </tr>
             </table>
           </td>
         </tr>
         <tr>
-          <td valign="top" style="padding:10px 0 0 0;">
+          <td valign="top" style="padding:8px 0 0 0;">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0">
               <tr>
-                <td style="padding-right:10px;"><img src="${BRAND.iconLoc}" width="${W_ICON}" height="${H_ICON}" alt="" style="display:block;border:0;height:auto;" /></td>
+                <td style="padding-right:10px;">
+                  <img src="${BRAND.iconLoc}" width="${W_ICON}" height="${H_ICON}" alt="" style="display:block;border:0;height:auto;" />
+                </td>
                 <td>${BRAND.address}</td>
               </tr>
             </table>
@@ -164,7 +170,7 @@ function signatureHTML(d){
       </table>
     </td>
 
-    <td valign="top" style="padding:8px 0 0 0;white-space:nowrap;">
+    <td valign="top" style="padding:6px 0 0 0;white-space:nowrap;">
       <table role="presentation" cellpadding="0" cellspacing="0" border="0">
         <tr><td><img src="${BRAND.iso}" width="${W_ISO}" height="${H_ISO}" alt="ISO 27017" style="display:block;border:0;height:auto;" /></td></tr>
         <tr><td style="height:10px;"></td></tr>
