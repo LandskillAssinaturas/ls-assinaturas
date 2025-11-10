@@ -17,26 +17,35 @@
 -->
 <style>
 :root{
-  --ls-blue:#353ED4; --ls-teal:#00C6B1; --txt:#111114; --muted:#586170; --bg:#fafafa;
+  --ls-blue:#353ED4;
+  --ls-teal:#00C6B1;
+  --txt:#111114;
+  --muted:#586170;
+  --bg:#fafafa;
 }
-body{ font-family:"Lydia Sans","Inter",Arial,sans-serif; margin:0; padding:24px; background:var(--bg); color:#111; }
-.app{ max-width:960px; margin:0 auto; display:grid; gap:24px; grid-template-columns:1.1fr 1fr; }
-.card{ background:#fff; border:1px solid #ddd; border-radius:16px; padding:18px; box-shadow:0 1px 4px rgba(0,0,0,.05); }
-h1{ margin:0 0 8px; font-size:20px; color:#111; }
-label{ display:block; font-size:13px; color:#333; margin:10px 0 4px; }
-input[type="text"],input[type="url"]{ width:100%; padding:10px 12px; border-radius:8px; border:1px solid #ccc; background:#fff; color:#111; }
-.btns{ display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }
-button{ padding:10px 14px; border-radius:8px; border:1px solid #ccc; background:#fff; color:#111; cursor:pointer; font-weight:600; }
-button.primary{ background:var(--ls-blue); border-color:var(--ls-blue); color:#fff; }
-small.hint{ color:#777; display:block; margin-top:4px; }
-.preview-wrap{ display:flex; gap:18px; align-items:flex-start; flex-wrap:wrap; }
-.preview-card{ background:#fff; color:#000; border-radius:12px; padding:16px; }
-.sig-title{ font-size:12px; color:#555; margin-bottom:8px; font-weight:600; }
-.mono{ font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; color:#555; overflow:auto }
+body{
+  font-family:"Lydia Sans","Inter",Arial,sans-serif;
+  margin:0;padding:24px;background:var(--bg);color:#111;
+}
+.app{max-width:960px;margin:0 auto;display:grid;gap:24px;grid-template-columns:1.1fr 1fr;}
+.card{background:#fff;border:1px solid #ddd;border-radius:16px;padding:18px;box-shadow:0 1px 4px rgba(0,0,0,.05);}
+h1{margin:0 0 8px;font-size:20px;color:#111;}
+label{display:block;font-size:13px;color:#333;margin:10px 0 4px;}
+input[type="text"],input[type="url"]{width:100%;padding:10px 12px;border-radius:8px;border:1px solid #ccc;background:#fff;color:#111;}
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;}
+button{padding:10px 14px;border-radius:8px;border:1px solid #ccc;background:#fff;color:#111;cursor:pointer;font-weight:600;}
+button.primary{background:var(--ls-blue);border-color:var(--ls-blue);color:#fff;}
+small.hint{color:#777;display:block;margin-top:4px;}
+.preview-wrap{display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap;}
+.preview-card{background:#fff;color:#000;border-radius:12px;padding:16px;}
+.sig-title{font-size:12px;color:#555;margin-bottom:8px;font-weight:600;}
+.mono{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;color:#555;overflow:auto}
 </style>
 </head>
 <body>
+
 <div class="app">
+  <!-- BUILDER -->
   <div class="card">
     <h1>Builder de Assinaturas — Landskill</h1>
     <label>Nome</label><input id="f-name" type="text" placeholder="Ex.: Filipa Freire">
@@ -55,6 +64,7 @@ small.hint{ color:#777; display:block; margin-top:4px; }
     <small class="hint">Tamanhos: Foto 240×240 → mostra 120×120 | Ícones 48×48 → mostram 24×24 | Logo 320×80 → mostra 160×40 | ISO 160×80 → mostra 120×60.</small>
   </div>
 
+  <!-- PREVIEW -->
   <div class="card">
     <div class="preview-wrap">
       <div class="preview-card">
@@ -71,7 +81,7 @@ small.hint{ color:#777; display:block; margin-top:4px; }
 
 <script>
 const BRAND={
-  officePhone:"T (+351) 215 947 950",
+  officePhone:"(+351) 215 947 950",
   address:"Rua do Proletariado Nº7 (Lote 1) Carnaxide, Portugal",
   linkWeb:"https://www.landskill.com/",
   linkIG:"https://www.instagram.com/landskill_it/",
@@ -94,73 +104,85 @@ function paramsFromForm(){
   return new URLSearchParams(d).toString();
 }
 
-/* ============== TEMPLATE AJUSTADO ============== */
+/* ============== TEMPLATE FINAL ============== */
 function signatureHTML(d){
   const name=d.name||"", role=d.role||"", tm=d.tm||"", photo=d.photo||"";
-  const W_LOGO=160,H_LOGO=40, W_PHOTO=120,H_PHOTO=120, W_ICON=24,H_ICON=24, W_ISO=120,H_ISO=60, W_ARROW=24,H_ARROW=24;
+  const W_PHOTO=120,H_PHOTO=120, W_ARROW=24,H_ARROW=24, W_LOGO=160,H_LOGO=40, W_ICON=24,H_ICON=24, W_ISO=120,H_ISO=60;
 
   return `
 <!-- BEGIN: LANDSKILL signature -->
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-family:'Lydia Sans',Arial,sans-serif;color:#111114;width:100%;max-width:900px;">
+  <!-- LINHA 1: FOTO | SETA | NOME/CARGO | LOGO -->
   <tr>
-    <!-- COLUNA ESQUERDA: HEADSHOT -->
     <td valign="top" style="padding:0 16px 0 0;">
       ${photo?`<img src="${photo}" width="${W_PHOTO}" height="${H_PHOTO}" alt="" style="display:block;border:0;height:auto;border-radius:999px;" />`:``}
     </td>
 
-    <!-- COLUNA CENTRAL: SETA + NOME/CARGO + LINHA + CONTACTOS -->
+    <td valign="top" style="padding:8px 12px 0 0;">
+      <img src="${BRAND.arrow}" width="${W_ARROW}" height="${H_ARROW}" alt="" style="display:block;border:0;height:auto;" />
+    </td>
+
     <td valign="top" style="padding:0 24px 0 0;">
-      <table role="presentation" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td valign="middle" style="padding:0 10px 0 0;">
-            <img src="${BRAND.arrow}" width="${W_ARROW}" height="${H_ARROW}" alt="" style="display:block;border:0;height:auto;" />
-          </td>
-          <td valign="middle">
-            <div style="font-size:22px;line-height:1.2;font-weight:800;color:#00C6B1;">${esc(name)}</div>
-            <div style="font-size:14px;line-height:1.35;font-weight:800;color:#353ED4;margin-top:2px;">${esc(role)}</div>
-          </td>
-        </tr>
-      </table>
+      <div style="font-size:22px;line-height:1.2;font-weight:800;color:#00C6B1;">${esc(name)}</div>
+      <div style="font-size:14px;line-height:1.35;font-weight:800;color:#353ED4;margin-top:2px;">${esc(role)}</div>
+    </td>
 
-      <div style="height:12px;"></div>
-      <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%;">
-        <tr><td style="height:4px;background:linear-gradient(90deg,#00C6B1 0%,#00C6B1 45%,#cfeeea 46%,#cfeeea 100%);border-radius:2px;"></td></tr>
-      </table>
-      <div style="height:8px;"></div>
+    <td valign="top" style="padding:0;">
+      <img src="${BRAND.logo}" width="${W_LOGO}" height="${H_LOGO}" alt="LANDSKILL" style="display:block;border:0;height:auto;" />
+    </td>
+  </tr>
 
-      <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="font-size:13px;color:#111114">
+  <!-- LINHA 2: BARRA VERDE CONTÍNUA -->
+  <tr>
+    <td colspan="4" style="padding:12px 0 0 0;">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%;border-collapse:collapse;">
+        <tr><td style="height:4px;background:#00C6B1;border-radius:2px;"></td></tr>
+      </table>
+    </td>
+  </tr>
+
+  <!-- LINHA 3: CONTACTOS (CENTRO) | ISO + ÍCONES (DIREITA) -->
+  <tr>
+    <td style="padding:0 16px 0 0;"></td>
+    <td style="padding:0 12px 0 0;"></td>
+
+    <td valign="top" style="padding:8px 24px 0 0;">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="font-size:13px;color:#111114;">
         ${tm?`
         <tr>
-          <td valign="middle" style="padding:6px 10px 0 0;"><img src="${BRAND.iconPhone}" width="${W_ICON}" height="${H_ICON}" alt="" style="display:block;border:0;height:auto;" /></td>
-          <td valign="middle" style="padding:6px 0 0 0;"><span style="font-weight:700;">T:</span> ${esc(tm)}</td>
+          <td valign="middle" style="padding:6px 0 0 0;">
+            <span style="font-weight:700;">T:</span> ${esc(tm)}
+          </td>
         </tr>`:""}
         <tr>
-          <td valign="middle" style="padding:10px 10px 0 0;"><img src="${BRAND.iconPhone}" width="${W_ICON}" height="${H_ICON}" alt="" style="display:block;border:0;height:auto;" /></td>
-          <td valign="middle" style="padding:10px 0 0 0;"><span style="font-weight:700;">T:</span> (+351) 215 947 950</td>
+          <td valign="middle" style="padding:10px 0 0 0;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td style="padding-right:10px;">
+                  <img src="${BRAND.iconPhone}" width="${W_ICON}" height="${H_ICON}" alt="" style="display:block;border:0;height:auto;" />
+                </td>
+                <td>${BRAND.officePhone}</td>
+              </tr>
+            </table>
+          </td>
         </tr>
         <tr>
-          <td valign="top" style="padding:10px 10px 0 0;"><img src="${BRAND.iconLoc}" width="${W_ICON}" height="${H_ICON}" alt="" style="display:block;border:0;height:auto;" /></td>
-          <td valign="top" style="padding:10px 0 0 0;">${BRAND.address}</td>
+          <td valign="top" style="padding:10px 0 0 0;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td style="padding-right:10px;">
+                  <img src="${BRAND.iconLoc}" width="${W_ICON}" height="${H_ICON}" alt="" style="display:block;border:0;height:auto;" />
+                </td>
+                <td>${BRAND.address}</td>
+              </tr>
+            </table>
+          </td>
         </tr>
       </table>
     </td>
 
-    <!-- COLUNA DIREITA: LOGO + LINHA + ISO + ÍCONES -->
-    <td valign="top" style="padding:0; white-space:nowrap;">
+    <td valign="top" style="padding:8px 0 0 0; white-space:nowrap;">
       <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
-        <tr>
-          <td style="padding:0 0 8px 0;">
-            <img src="${BRAND.logo}" width="${W_LOGO}" height="${H_LOGO}" alt="LANDSKILL" style="display:block;border:0;height:auto;" />
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%;">
-              <tr><td style="height:4px;background:#cfeeea;border-radius:2px;"></td></tr>
-            </table>
-          </td>
-        </tr>
-        <tr><td style="height:12px;"></td></tr>
         <tr>
           <td>
             <img src="${BRAND.iso}" width="${W_ISO}" height="${H_ISO}" alt="ISO 27017" style="display:block;border:0;height:auto;" />
@@ -190,8 +212,6 @@ function signatureHTML(d){
             </table>
           </td>
         </tr>
-        <tr><td style="height:10px;"></td></tr>
-        <tr><td style="font-size:12px;color:#586170;">landskill.com</td></tr>
       </table>
     </td>
   </tr>
@@ -205,7 +225,7 @@ function render(){
   const qs=paramsFromForm();
   $('qs').textContent='?'+qs;
   const d=Object.fromEntries(new URLSearchParams(qs));
-  if(!d.photo) d.photo="https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_headshot-filipa-freire.png";
+  if(!d.photo)d.photo="https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_headshot-filipa-freire.png";
   $('sig').innerHTML=signatureHTML(d);
 }
 
@@ -238,9 +258,9 @@ render();
 (function(){
   const p=new URLSearchParams(location.search);
   if(p.get('solo')==='1'){
-    document.body.style.background="#fff"; document.body.style.color="#000";
+    document.body.style.background="#fff";document.body.style.color="#000";
     const d=Object.fromEntries(p.entries());
-    if(!d.photo) d.photo="https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_headshot-filipa-freire.png";
+    if(!d.photo)d.photo="https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_headshot-filipa-freire.png";
     document.body.innerHTML=signatureHTML(d);
   }
 })();
