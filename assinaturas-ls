@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Assinaturas – Landskill (Builder)</title>
+
+<!-- Lydia Sans (opcional) — aponta para o teu WOFF2 no repo e descomenta -->
+<!--
+<style>
+@font-face{
+  font-family:"Lydia Sans";
+  src:url("https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/fonts/LydiaSans.woff2") format("woff2");
+  font-weight:400 800;
+  font-style:normal;
+  font-display:swap;
+}
+</style>
+-->
+<style>
+  :root{
+    --ls-blue:#353ED4;    /* azul mais escuro */
+    --ls-teal:#00C6B1;    /* azul mais verde */
+    --txt:#111114;        /* preto / texto */
+    --muted:#586170;
+  }
+  body{ font-family:"Lydia Sans", "Montserrat", "Inter", Arial, sans-serif; margin:0; padding:24px; background:#0b0b0b; color:#eee; }
+  .app{ max-width:1100px; margin:0 auto; display:grid; gap:24px; grid-template-columns:1.1fr 1fr; }
+  .card{ background:#111; border:1px solid #232323; border-radius:16px; padding:18px; }
+  h1{ margin:0 0 8px; font-size:20px }
+  label{ display:block; font-size:12px; color:#bbb; margin:10px 0 4px; }
+  input[type="text"], input[type="url"]{ width:100%; padding:10px 12px; border-radius:10px; border:1px solid #262626; background:#181818; color:#eee; }
+  .row{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .btns{ display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
+  button{ padding:10px 14px; border-radius:10px; border:1px solid #2a2a2a; background:#1e1e1e; color:#fff; cursor:pointer; }
+  button.primary{ background:var(--ls-blue); border-color:var(--ls-blue); }
+  small.hint{ color:#8a8a8a; display:block; margin-top:4px }
+  .preview-wrap{ display:flex; gap:18px; align-items:flex-start; flex-wrap:wrap; }
+  .preview-card{ background:#fff; color:#000; border-radius:12px; padding:16px; }
+  .sig-title{ font-size:12px; color:#888; margin-bottom:8px }
+  .mono{ font-family: ui-monospace, Menlo, Consolas, monospace; font-size:12px; color:#bbb; overflow:auto }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <!-- BUILDER -->
+  <div class="card">
+    <h1>Builder de Assinaturas — Landskill</h1>
+
+    <div class="row">
+      <div>
+        <label>Nome</label>
+        <input id="f-name" type="text" placeholder="Ex.: Filipa Freire">
+      </div>
+      <div>
+        <label>Cargo</label>
+        <input id="f-role" type="text" placeholder="Ex.: Graphic Designer">
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <label>T (telemóvel pessoal)</label>
+        <input id="f-tm" type="text" placeholder="Ex.: (+351) 9XX XXX XXX">
+      </div>
+      <div>
+        <label>URL da Foto (PNG círculo 240×240)</label>
+        <input id="f-photo" type="url" placeholder="https://.../ls_headshot-nome.png">
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <label>URL do Logo (opcional)</label>
+        <input id="f-logo" type="url" placeholder="https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_logo.png">
+      </div>
+      <div>
+        <label>URL da Seta decorativa (opcional)</label>
+        <input id="f-arrow" type="url" placeholder="https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_seta.png">
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <label>Ícone Website (24px)</label>
+        <input id="f-icon-web" type="url" value="https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_icon-website.png">
+      </div>
+      <div>
+        <label>Ícone Instagram (24px)</label>
+        <input id="f-icon-ig" type="url" value="https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_icon-instagram.png">
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <label>Ícone LinkedIn (24px)</label>
+        <input id="f-icon-li" type="url" value="https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_icon-linkedin.png">
+      </div>
+      <div>
+        <label>Ícone Telefone (24px)</label>
+        <input id="f-icon-phone" type="url" value="https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_telemovel.png">
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <label>Ícone Morada (24px)</label>
+        <input id="f-icon-loc" type="url" value="https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_local.png">
+      </div>
+      <div>
+        <label>URL Selo ISO (opcional)</label>
+        <input id="f-iso" type="url" value="https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_certificacao-iso.png">
+      </div>
+    </div>
+
+    <div class="btns">
+      <button class="primary" id="btn-render">Gerar / Atualizar</button>
+      <button id="btn-copy">Copiar assinatura</button>
+      <button id="btn-open">Abrir versão standalone</button>
+      <button id="btn-link">Gerar links</button>
+    </div>
+
+    <small class="hint">Tamanhos: Logo 320×80 (mostra 160×40) • Foto 240×240 (mostra 120×120) • Ícones 48×48 (mostram 24×24) • ISO 160×80 (mostra 120×60). Tudo com width/height fixos → nada “deformado”.</small>
+  </div>
+
+  <!-- PREVIEW -->
+  <div class="card">
+    <div class="preview-wrap">
+      <div class="preview-card">
+        <div class="sig-title">Pré-visualização</div>
+        <div id="sig"></div>
+      </div>
+      <div class="card" style="min-width:280px">
+        <div style="font-size:12px; color:#bbb; margin-bottom:8px">Query string atual</div>
+        <div id="qs" class="mono"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ===== CONFIG FIXA DA MARCA ===== */
+const BRAND = {
+  officePhone: "T (+351) 215 947 950",
+  address1: "Rua do Proletariado Nº7 (Lote 1)",
+  address2: "Carnaxide, Portugal",
+  linkWeb: "https://www.landskill.com/",
+  linkIG:  "https://www.instagram.com/landskill_it/",
+  linkLI:  "https://www.linkedin.com/company/101356039/"
+};
+
+/* ===== DEFAULTS DE IMAGENS (do teu repo) ===== */
+const DEFAULTS = {
+  photo: "https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_headshot-filipa-freire.png",
+  logo:  "https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_logo.png",
+  arrow: "https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_seta.png",
+  iso:   "https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_certificacao-iso.png",
+  iconWeb: "https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_icon-website.png",
+  iconIG:  "https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_icon-instagram.png",
+  iconLI:  "https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_icon-linkedin.png",
+  iconPhone:"https://raw.githubusercontent
