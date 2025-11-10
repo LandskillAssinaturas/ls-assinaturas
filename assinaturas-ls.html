@@ -35,7 +35,6 @@ small.hint{color:#777; display:block; margin-top:4px;}
 <body>
 
 <div class="app">
-  <!-- BUILDER -->
   <div class="card">
     <h1>Builder de Assinaturas — Landskill</h1>
     <label>Nome</label><input id="f-name" type="text" placeholder="Ex.: Filipa Freire">
@@ -54,7 +53,6 @@ small.hint{color:#777; display:block; margin-top:4px;}
     <small class="hint">Tamanhos: Foto 240×240 → mostra 120×120 | Ícones 48×48 → mostram 24×24 | Logo 320×80 → mostra 160×40 | ISO 160×80 → mostra 120×60.</small>
   </div>
 
-  <!-- PREVIEW -->
   <div class="card">
     <div class="preview-wrap">
       <div class="preview-card">
@@ -94,7 +92,6 @@ function paramsFromForm(){
   return new URLSearchParams(d).toString();
 }
 
-/* ============== TEMPLATE (email-safe) ============== */
 function signatureHTML(d){
   const name=d.name||"", role=d.role||"", tm=d.tm||"", photo=d.photo||"";
   const W_PHOTO=120,H_PHOTO=120, W_ARROW=24,H_ARROW=24, W_LOGO=160,H_LOGO=40, W_ICON=24,H_ICON=24, W_ISO=120,H_ISO=60;
@@ -103,30 +100,26 @@ function signatureHTML(d){
 <!-- BEGIN: LANDSKILL signature -->
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-family:'Lydia Sans',Arial,sans-serif;color:#111114;width:100%;max-width:900px;">
   <tr>
-    <!-- FOTO -->
     <td valign="top" style="padding:0 16px 0 0;">
       ${photo?`<img src="${photo}" width="${W_PHOTO}" height="${H_PHOTO}" alt="" style="display:block;border:0;height:auto;border-radius:999px;" />`:``}
     </td>
-    <!-- SETA -->
     <td valign="top" style="padding:8px 12px 0 0;">
       <img src="${BRAND.arrow}" width="${W_ARROW}" height="${H_ARROW}" alt="" style="display:block;border:0;height:auto;" />
     </td>
-    <!-- NOME + CARGO -->
     <td valign="top" style="padding:0 24px 0 0;">
       <div style="font-size:22px;line-height:1.2;font-weight:800;color:#00C6B1;">${esc(name)}</div>
       <div style="font-size:14px;line-height:1.35;font-weight:800;color:#353ED4;margin-top:2px;">${esc(role)}</div>
     </td>
-    <!-- LOGO -->
     <td valign="top" style="padding:0;">
       <img src="${BRAND.logo}" width="${W_LOGO}" height="${H_LOGO}" alt="LANDSKILL" style="display:block;border:0;height:auto;" />
     </td>
   </tr>
 
-  <!-- LINHA VERDE -->
+  <!-- LINHA VERDE COLADA -->
   <tr>
     <td colspan="2"></td>
-    <td colspan="2" style="padding:2px 0 0 0;">
-      <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%;border-collapse:collapse;">
+    <td colspan="2" style="padding:0;">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%;border-collapse:collapse;margin-top:1px;">
         <tr>
           <td style="height:4px;background:linear-gradient(90deg,#00C6B1 0%,#00C6B1 32%,#CFEDEA 32%,#CFEDEA 100%);border-radius:2px;"></td>
         </tr>
@@ -171,7 +164,6 @@ function signatureHTML(d){
       </table>
     </td>
 
-    <!-- ISO + ÍCONES -->
     <td valign="top" style="padding:4px 0 0 0;white-space:nowrap;">
       <table role="presentation" cellpadding="0" cellspacing="0" border="0">
         <tr><td><img src="${BRAND.iso}" width="${W_ISO}" height="${H_ISO}" alt="ISO 27017" style="display:block;border:0;height:auto;" /></td></tr>
@@ -180,9 +172,9 @@ function signatureHTML(d){
           <td>
             <table role="presentation" cellpadding="0" cellspacing="0" border="0">
               <tr>
-                <td style="padding-right:10px;"><a href="${BRAND.linkWeb}" target="_blank" rel="noopener"><img src="${BRAND.iconWeb}" width="${W_ICON}" height="${H_ICON}" alt="Website" style="display:block;border:0;height:auto;" /></a></td>
-                <td style="padding-right:10px;"><a href="${BRAND.linkIG}" target="_blank" rel="noopener"><img src="${BRAND.iconIG}" width="${W_ICON}" height="${H_ICON}" alt="Instagram" style="display:block;border:0;height:auto;" /></a></td>
-                <td><a href="${BRAND.linkLI}" target="_blank" rel="noopener"><img src="${BRAND.iconLI}" width="${W_ICON}" height="${H_ICON}" alt="LinkedIn" style="display:block;border:0;height:auto;" /></a></td>
+                <td style="padding-right:10px;"><a href="${BRAND.linkWeb}" target="_blank"><img src="${BRAND.iconWeb}" width="${W_ICON}" height="${H_ICON}" alt="Website" style="display:block;border:0;height:auto;" /></a></td>
+                <td style="padding-right:10px;"><a href="${BRAND.linkIG}" target="_blank"><img src="${BRAND.iconIG}" width="${W_ICON}" height="${H_ICON}" alt="Instagram" style="display:block;border:0;height:auto;" /></a></td>
+                <td><a href="${BRAND.linkLI}" target="_blank"><img src="${BRAND.iconLI}" width="${W_ICON}" height="${H_ICON}" alt="LinkedIn" style="display:block;border:0;height:auto;" /></a></td>
               </tr>
             </table>
           </td>
@@ -195,7 +187,6 @@ function signatureHTML(d){
 `.trim();
 }
 
-/* ===== UI ===== */
 function render(){
   const qs=paramsFromForm();
   $('qs').textContent='?'+qs;
