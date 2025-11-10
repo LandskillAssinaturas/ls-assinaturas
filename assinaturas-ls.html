@@ -90,7 +90,7 @@ function paramsFromForm(){
   return new URLSearchParams(d).toString();
 }
 
-/* ===== TEMPLATE com rowspan e respiros finos ===== */
+/* ===== TEMPLATE ===== */
 function signatureHTML(d){
   const name=d.name||"", role=d.role||"", tm=d.tm||"", photo=d.photo||"";
   const W_PHOTO=120,H_PHOTO=120, W_ARROW=24,H_ARROW=24, W_LOGO=160,H_LOGO=40, W_ICON=24,H_ICON=24, W_ISO=120,H_ISO=60;
@@ -100,31 +100,27 @@ function signatureHTML(d){
 
   <!-- ROW 1: foto (rowspan), seta, nome/cargo, logo -->
   <tr style="line-height:1; font-size:0; vertical-align:top;">
-    <!-- FOTO ocupa 3 linhas -->
     <td rowspan="3" valign="top" style="padding:0 16px 0 0;">
       ${photo?`<img src="${photo}" width="${W_PHOTO}" height="${H_PHOTO}" style="display:block;border-radius:999px;" alt="">`:``}
     </td>
 
-    <!-- SETA (mais respiro à direita) -->
     <td valign="top" style="padding:8px 20px 0 0;">
       <img src="${BRAND.arrow}" width="${W_ARROW}" height="${H_ARROW}" style="display:block;" alt="">
     </td>
 
-    <!-- NOME + CARGO (cargo com 6px abaixo) -->
     <td valign="top" style="padding:0 24px 0 0;">
       <div style="font-size:22px;line-height:1;font-weight:800;color:#00C6B1;margin:0;">${esc(name)}</div>
-      <div style="font-size:14px;line-height:1.1;font-weight:800;color:#353ED4;margin:0 0 6px 0;">${esc(role)}</div>
+      <div style="font-size:14px;line-height:1.1;font-weight:800;color:#353ED4;margin:0 0 10px 0;">${esc(role)}</div>
     </td>
 
-    <!-- LOGO -->
     <td valign="top" style="padding:4px 0 0 0;">
       <img src="${BRAND.logo}" width="${W_LOGO}" height="${H_LOGO}" style="display:block;" alt="LANDSKILL">
     </td>
   </tr>
 
-  <!-- ROW 2: linha verde (com leve respiro antes dos contactos) -->
+  <!-- ROW 2: linha verde -->
   <tr style="height:0; line-height:0; font-size:0;">
-    <td colspan="3" style="height:0; line-height:0; font-size:0; padding:2px 0 0 0;">
+    <td colspan="3" style="height:0; line-height:0; font-size:0; padding:6px 0 4px 0;">
       <table role="presentation" cellpadding="0" cellspacing="0" border="0"
              style="width:100%;border-collapse:collapse;margin-top:0;line-height:0;font-size:0;">
         <tr style="height:0; line-height:0; font-size:0;">
@@ -134,12 +130,9 @@ function signatureHTML(d){
     </td>
   </tr>
 
-  <!-- ROW 3: contactos (mais respiro no topo), ISO+ícones (gap 12px) -->
+  <!-- ROW 3: contactos -->
   <tr>
-    <!-- espaçador onde antes estava a seta -->
     <td style="padding:0 12px 0 0;"></td>
-
-    <!-- contactos -->
     <td valign="top" style="padding:8px 24px 0 0;">
       <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="font-size:13px;color:#111114;">
         ${tm?`<tr><td style="font-size:14px;font-weight:700;">T: ${esc(tm)}</td></tr>`:""}
@@ -166,7 +159,6 @@ function signatureHTML(d){
       </table>
     </td>
 
-    <!-- ISO + ícones (gap 12px) -->
     <td valign="top" style="padding:8px 0 0 0; white-space:nowrap;">
       <table role="presentation" cellpadding="0" cellspacing="0" border="0">
         <tr><td><img src="${BRAND.iso}" width="${W_ISO}" height="${H_ISO}" style="display:block;" alt="ISO 27017"></td></tr>
@@ -189,7 +181,6 @@ function signatureHTML(d){
 `.trim();
 }
 
-/* ===== UI do builder ===== */
 function render(){
   const qs=paramsFromForm();
   $('qs').textContent='?'+qs;
