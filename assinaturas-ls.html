@@ -117,28 +117,27 @@ function signatureHTML(d){
     </td>
   </tr>
 
-  <!-- Linha 2A: base verde 4px, cantos arredondados -->
+  <!-- Linha 2A: base verde (termina mais cedo) -->
   <tr style="height:0; line-height:0; font-size:0;">
     <td style="height:0; line-height:0; font-size:0; padding:0;"></td>
     <td colspan="2" style="height:0; line-height:0; font-size:0; padding:6px 0 0 0;">
       <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%;border-collapse:collapse;">
         <tr>
-          <td style="height:4px;background:#00C6B1;border-radius:4px;"></td>
+          <td style="width:38%; height:4px; background:#00C6B1; border-radius:4px;"></td>
+          <td style="width:62%; height:4px;"></td>
         </tr>
       </table>
     </td>
   </tr>
 
-  <!-- Linha 2B (underlay): esbatida 2px, começa um pouco antes do fim da verde e estende mais à direita -->
+  <!-- Linha 2B: esbatida (por baixo, ligeiramente mais espessa e mais longa) -->
   <tr style="height:0; line-height:0; font-size:0;">
     <td style="height:0; line-height:0; font-size:0; padding:0;"></td>
-    <td colspan="2" style="height:0; line-height:0; font-size:0; padding:1px 0 4px 0;">
-      <!-- tabela com 2 células: left spacer (≈60%) + right light line (≈40%) -->
+    <td colspan="2" style="height:0; line-height:0; font-size:0; padding:0 0 4px 0;">
       <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%;border-collapse:collapse;">
         <tr>
-          <!-- ajusta a percentagem para controlar onde começa a esbatida -->
-          <td style="width:60%; height:2px; line-height:0; font-size:0;"></td>
-          <td style="width:40%; height:2px; background:#CFEDEA; border-radius:4px;"></td>
+          <td style="width:33%; height:3px;"></td>
+          <td style="width:67%; height:3px; background:#CFEDEA; border-radius:4px;"></td>
         </tr>
       </table>
     </td>
