@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-PT">
-<head>
+>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Assinaturas – Landskill (Builder)</title>
@@ -99,7 +99,7 @@ function signatureHTML(d){
 
   <!-- Linha 1 -->
   <tr style="line-height:1; font-size:0; vertical-align:top;">
-    <td rowspan="3" valign="top" style="padding:0 0 0 0;">
+    <td rowspan="3" valign="top" style="padding:0;">
       ${photo?`<img src="${photo}" width="${W_PHOTO}" style="display:block;height:auto;border-radius:999px;" alt="">`:``}
     </td>
 
@@ -117,7 +117,7 @@ function signatureHTML(d){
     </td>
   </tr>
 
-  <!-- Linha 2: overlap real -->
+  <!-- Linha 2: overlap real (linha esbatida por baixo e centradas) -->
   <tr style="height:0; line-height:0; font-size:0;">
     <td style="height:0; line-height:0; font-size:0; padding:0;"></td>
     <td colspan="2" style="height:0; line-height:0; font-size:0; padding:6px 0 4px 0;">
@@ -137,9 +137,30 @@ function signatureHTML(d){
       <![endif]-->
 
       <!--[if !mso]><!-->
-      <div style="position:relative; height:4px; line-height:0;">
-        <div style="height:4px; background:#00C6B1; border-radius:4px; width:38%;"></div>
-        <div style="height:3px; background:#CFEDEA; border-radius:4px; width:67%; margin-left:33%; position:absolute; top:0; left:0;"></div>
+      <div style="position:relative; height:5px; line-height:0;">
+        <!-- linha esbatida (por baixo) -->
+        <div style="
+          position:absolute;
+          top:50%;
+          left:0;
+          transform:translateY(-50%);
+          width:67%;
+          height:3px;
+          background:#CFEDEA;
+          border-radius:4px;
+        "></div>
+
+        <!-- linha verde (por cima, centrada e mais curta) -->
+        <div style="
+          position:absolute;
+          top:50%;
+          left:0;
+          transform:translateY(-50%);
+          width:38%;
+          height:4px;
+          background:#00C6B1;
+          border-radius:4px;
+        "></div>
       </div>
       <!--<![endif]-->
 
