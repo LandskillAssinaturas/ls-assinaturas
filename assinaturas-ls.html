@@ -113,17 +113,14 @@ function signatureHTML(d){
       <div style="font-size:14px;line-height:1.1;font-weight:800;color:#353ED4;margin:0 0 10px 0;">${esc(role)}</div>
     </td>
 
-    <td valign="top" style="padding:4px 0 0 0;">
-      <img src="${BRAND.logo}" width="${W_LOGO}" height="${H_LOGO}" style="display:block;" alt="LANDSKILL">
+    <td valign="top" style="padding:4px 8px 0 0; text-align:center;">
+      <img src="${BRAND.logo}" width="${W_LOGO}" height="${H_LOGO}" style="display:block;margin:0 auto;" alt="LANDSKILL">
     </td>
   </tr>
 
   <!-- ROW 2: linha verde – começa no eixo do Nome/Cargo e vai até ao fim -->
   <tr style="height:0; line-height:0; font-size:0;">
-    <!-- célula da SETA (vazia): mantém a coluna 2 para que a linha não comece aqui -->
     <td style="height:0; line-height:0; font-size:0; padding:0;"></td>
-
-    <!-- a linha ocupa as colunas Nome/Cargo + Logo (colspan=2) -->
     <td colspan="2" style="height:0; line-height:0; font-size:0; padding:6px 0 4px 0;">
       <table role="presentation" cellpadding="0" cellspacing="0" border="0"
              style="width:100%;border-collapse:collapse;margin-top:0;line-height:0;font-size:0;">
@@ -136,10 +133,8 @@ function signatureHTML(d){
 
   <!-- ROW 3: contactos -->
   <tr>
-    <!-- coluna da seta serve de espaçador nesta linha -->
     <td style="padding:0 12px 0 0;"></td>
 
-    <!-- contactos (alinha com Nome/Cargo acima) -->
     <td valign="top" style="padding:8px 24px 0 0;">
       <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="font-size:13px;color:#111114;">
         ${tm?`<tr><td style="font-size:14px;font-weight:700;">T: ${esc(tm)}</td></tr>`:""}
@@ -166,18 +161,17 @@ function signatureHTML(d){
       </table>
     </td>
 
-    <!-- ISO + ícones (continuação do eixo da direita) -->
-    <td valign="top" style="padding:8px 0 0 0; white-space:nowrap;">
-      <table role="presentation" cellpadding="0" cellspacing="0" border="0">
-        <tr><td><img src="${BRAND.iso}" width="${W_ISO}" height="${H_ISO}" style="display:block;" alt="ISO 27017"></td></tr>
+    <td valign="top" style="padding:8px 0 0 0; white-space:nowrap; text-align:center;">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;">
+        <tr><td><img src="${BRAND.iso}" width="${W_ISO}" height="${H_ISO}" style="display:block;margin:0 auto;" alt="ISO 27017"></td></tr>
         <tr><td style="height:12px;"></td></tr>
         <tr>
           <td>
-            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;">
               <tr>
-                <td style="padding-right:10px;"><a href="${BRAND.linkWeb}" target="_blank" rel="noopener"><img src="${BRAND.iconWeb}" width="${W_ICON}" height="${W_ICON}" style="display:block;" alt="Website"></a></td>
-                <td style="padding-right:10px;"><a href="${BRAND.linkIG}" target="_blank" rel="noopener"><img src="${BRAND.iconIG}" width="${W_ICON}" height="${W_ICON}" style="display:block;" alt="Instagram"></a></td>
-                <td><a href="${BRAND.linkLI}" target="_blank" rel="noopener"><img src="${BRAND.iconLI}" width="${W_ICON}" height="${W_ICON}" style="display:block;" alt="LinkedIn"></a></td>
+                <td style="padding-right:10px;"><a href="${BRAND.linkWeb}" target="_blank" rel="noopener"><img src="${BRAND.iconWeb}" width="${W_ICON}" height="${W_ICON}" style="display:block;margin:0 auto;" alt="Website"></a></td>
+                <td style="padding-right:10px;"><a href="${BRAND.linkIG}" target="_blank" rel="noopener"><img src="${BRAND.iconIG}" width="${W_ICON}" height="${W_ICON}" style="display:block;margin:0 auto;" alt="Instagram"></a></td>
+                <td><a href="${BRAND.linkLI}" target="_blank" rel="noopener"><img src="${BRAND.iconLI}" width="${W_ICON}" height="${W_ICON}" style="display:block;margin:0 auto;" alt="LinkedIn"></a></td>
               </tr>
             </table>
           </td>
