@@ -99,11 +99,11 @@ function signatureHTML(d){
 
   <!-- Linha 1 -->
   <tr style="line-height:1; font-size:0; vertical-align:top;">
-    <td rowspan="4" valign="top" style="padding:0 16px 0 0;">
+    <td rowspan="3" valign="top" style="padding:0 0 0 0;">
       ${photo?`<img src="${photo}" width="${W_PHOTO}" style="display:block;height:auto;border-radius:999px;" alt="">`:``}
     </td>
 
-    <td valign="top" style="padding:8px 20px 0 0;">
+    <td valign="top" style="padding:0 20px 0 0;">
       <img src="${BRAND.arrow}" width="${W_ARROW}" style="display:block;height:auto;" alt="">
     </td>
 
@@ -117,29 +117,32 @@ function signatureHTML(d){
     </td>
   </tr>
 
-  <!-- Linha 2A: base verde (termina mais cedo) -->
+  <!-- Linha 2: overlap real -->
   <tr style="height:0; line-height:0; font-size:0;">
     <td style="height:0; line-height:0; font-size:0; padding:0;"></td>
-    <td colspan="2" style="height:0; line-height:0; font-size:0; padding:6px 0 0 0;">
+    <td colspan="2" style="height:0; line-height:0; font-size:0; padding:6px 0 4px 0;">
+      
+      <!-- Fallback Outlook -->
+      <!--[if mso]>
       <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%;border-collapse:collapse;">
         <tr>
           <td style="width:38%; height:4px; background:#00C6B1; border-radius:4px;"></td>
           <td style="width:62%; height:4px;"></td>
         </tr>
-      </table>
-    </td>
-  </tr>
-
-  <!-- Linha 2B: esbatida (por baixo, ligeiramente mais espessa e mais longa) -->
-  <tr style="height:0; line-height:0; font-size:0;">
-    <td style="height:0; line-height:0; font-size:0; padding:0;"></td>
-    <td colspan="2" style="height:0; line-height:0; font-size:0; padding:0 0 4px 0;">
-      <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%;border-collapse:collapse;">
         <tr>
           <td style="width:33%; height:3px;"></td>
           <td style="width:67%; height:3px; background:#CFEDEA; border-radius:4px;"></td>
         </tr>
       </table>
+      <![endif]-->
+
+      <!--[if !mso]><!-->
+      <div style="position:relative; height:4px; line-height:0;">
+        <div style="height:4px; background:#00C6B1; border-radius:4px; width:38%;"></div>
+        <div style="height:3px; background:#CFEDEA; border-radius:4px; width:67%; margin-left:33%; position:absolute; top:0; left:0;"></div>
+      </div>
+      <!--<![endif]-->
+
     </td>
   </tr>
 
