@@ -1,46 +1,45 @@
 <!DOCTYPE html>
 <html lang="pt-PT">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Assinaturas – Landskill (Builder)</title>
-
-<style>
-:root{
-  --ls-blue:#353ED4;
-  --ls-teal:#00C6B1;
-  --txt:#111114;
-  --bg:#fafafa;
-}
-body{
-  font-family:"Lydia Sans","Inter",Arial,sans-serif;
-  margin:0; padding:24px; background:var(--bg); color:#111;
-}
-.app{max-width:960px; margin:0 auto; display:grid; gap:24px; grid-template-columns:1.1fr 1fr;}
-.card{background:#fff; border:1px solid #ddd; border-radius:16px; padding:18px; box-shadow:0 1px 4px rgba(0,0,0,.05);}
-h1{margin:0 0 8px; font-size:20px;}
-label{display:block; font-size:13px; margin:10px 0 4px;}
-input[type="text"],input[type="url"]{width:100%; padding:10px 12px; border-radius:8px; border:1px solid #ccc;}
-.btns{display:flex; gap:8px; flex-wrap:wrap; margin-top:14px;}
-button{padding:10px 14px; border-radius:8px; border:1px solid #ccc; background:#fff; cursor:pointer; font-weight:600;}
-button.primary{background:var(--ls-blue); border-color:var(--ls-blue); color:#fff;}
-small.hint{color:#777; display:block; margin-top:4px;}
-.preview-wrap{display:flex; gap:18px; align-items:flex-start; flex-wrap:wrap;}
-.preview-card{background:#fff; border-radius:12px; padding:16px;}
-.sig-title{font-size:12px; color:#555; margin-bottom:8px; font-weight:600;}
-.mono{font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; color:#555; overflow:auto}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Assinaturas — Landskill (Builder)</title>
+  <style>
+    :root{ --ls-blue:#353ED4; --ls-teal:#00C6B1; --txt:#111114; --bg:#fafafa; }
+    body{ font-family:"Lydia Sans","Inter",Arial,sans-serif; margin:0; padding:24px; background:var(--bg); color:#111; }
+    .app{ max-width:960px; margin:0 auto; display:grid; gap:24px; grid-template-columns:1.1fr 1fr; }
+    .card{ background:#fff; border:1px solid #ddd; border-radius:16px; padding:18px; box-shadow:0 1px 4px rgba(0,0,0,.05); }
+    h1{ margin:0 0 8px; font-size:20px; }
+    label{ display:block; font-size:13px; margin:10px 0 4px; }
+    input[type="text"],input[type="url"]{ width:100%; padding:10px 12px; border-radius:8px; border:1px solid #ccc; }
+    .btns{ display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }
+    button{ padding:10px 14px; border-radius:8px; border:1px solid #ccc; background:#fff; cursor:pointer; font-weight:600; }
+    button.primary{ background:var(--ls-blue); border-color:var(--ls-blue); color:#fff; }
+    small.hint{ color:#777; display:block; margin-top:4px; }
+    .preview-wrap{ display:flex; gap:18px; align-items:flex-start; flex-wrap:wrap; }
+    .preview-card{ background:#fff; border-radius:12px; padding:16px; }
+    .sig-title{ font-size:12px; color:#555; margin-bottom:8px; font-weight:600; }
+    .mono{ font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; color:#555; overflow:auto }
+  </style>
 </head>
 <body>
 
 <div class="app">
   <div class="card">
     <h1>Builder de Assinaturas — Landskill</h1>
-    <label>Nome</label><input id="f-name" type="text" placeholder="Ex.: Filipa Freire">
-    <label>Cargo</label><input id="f-role" type="text" placeholder="Ex.: Graphic Designer">
-    <label>T (telemóvel pessoal)</label><input id="f-tm" type="text" placeholder="Ex.: (+351) 9XX XXX XXX">
+
+    <label>Nome</label>
+    <input id="f-name" type="text" placeholder="Ex.: Filipa Freire" />
+
+    <label>Cargo</label>
+    <input id="f-role" type="text" placeholder="Ex.: Graphic Designer" />
+
+    <label>T (telemóvel pessoal)</label>
+    <input id="f-tm" type="text" placeholder="Ex.: (+351) 9XX XXX XXX" />
+
     <label>URL da Foto (PNG círculo 240×240)</label>
-    <input id="f-photo" type="url" value="https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_headshot-filipa-freire.png">
+    <input id="f-photo" type="url"
+      value="https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_headshot-filipa-freire.png" />
 
     <div class="btns">
       <button class="primary" id="btn-render">Gerar / Atualizar</button>
@@ -48,9 +47,7 @@ small.hint{color:#777; display:block; margin-top:4px;}
       <button id="btn-open">Abrir versão standalone</button>
       <button id="btn-link">Gerar links</button>
     </div>
-    <small class="hint">
-      Tamanhos: Foto mostra 96×auto • Ícones 20×auto • Logo 110×auto • ISO 72×auto • Largura total 620 px.
-    </small>
+    <small class="hint">Tamanhos: Foto mostra 96×auto • Ícones 20×auto • Logo 110×auto • ISO 72×auto • Largura total 620 px.</small>
   </div>
 
   <div class="card">
@@ -68,40 +65,39 @@ small.hint{color:#777; display:block; margin-top:4px;}
 </div>
 
 <script>
-const BRAND={
-  officePhone:"(+351) 214 139 860",
-  address:"Rua do Proletariado Nº7 (Lote 1) Carnaxide, Portugal",
-  linkWeb:"https://www.landskill.com/",
-  linkIG:"https://www.instagram.com/landskill_it/",
-  linkLI:"https://www.linkedin.com/company/101356039/",
-  logo:"https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_logo.png",
-  arrow:"https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_seta.png",
-  iso:"https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_certificacao-iso.png",
-  iconWeb:"https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_icon-website.png",
-  iconIG:"https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_icon-instagram.png",
-  iconLI:"https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_icon-linkedin.png",
-  iconPhone:"https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_telemovel.png",
-  iconLoc:"https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_local.png"
-};
+(function(){
+  const BRAND={
+    officePhone:"(+351) 214 139 860",
+    address:"Rua do Proletariado Nº7 (Lote 1) Carnaxide, Portugal",
+    linkWeb:"https://www.landskill.com/",
+    linkIG:"https://www.instagram.com/landskill_it/",
+    linkLI:"https://www.linkedin.com/company/101356039/",
+    logo:"https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_logo.png",
+    arrow:"https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_seta.png",
+    iso:"https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_certificacao-iso.png",
+    iconWeb:"https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_icon-website.png",
+    iconIG:"https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_icon-instagram.png",
+    iconLI:"https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_icon-linkedin.png",
+    iconPhone:"https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_telemovel.png",
+    iconLoc:"https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_local.png"
+  };
 
-const $=id=>document.getElementById(id);
-const esc=t=>String(t||"").replace(/[<>&"]/g,s=>({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[s]));
+  const $=id=>document.getElementById(id);
+  const esc=t=>String(t||"").replace(/[<>&"]/g,s=>({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[s]));
 
-function paramsFromForm(){
-  const d={ name:$('f-name').value.trim(), role:$('f-role').value.trim(), tm:$('f-tm').value.trim(), photo:$('f-photo').value.trim() };
-  return new URLSearchParams(d).toString();
-}
+  function paramsFromForm(){
+    const d={ name:$('f-name').value.trim(), role:$('f-role').value.trim(), tm:$('f-tm').value.trim(), photo:$('f-photo').value.trim() };
+    return new URLSearchParams(d).toString();
+  }
 
-function signatureHTML(d){
-  const name=d.name||"", role=d.role||"", tm=d.tm||"", photo=d.photo||"";
-  // tamanhos menores para e-mail real
-  const W_TABLE=620, W_PHOTO=96, W_ARROW=20, W_LOGO=110, W_ICON=20, W_ISO=72;
+  function signatureHTML(d){
+    const name=d.name||"", role=d.role||"", tm=d.tm||"", photo=d.photo||"";
+    const W_TABLE=620, W_PHOTO=96, W_ARROW=20, W_LOGO=110, W_ICON=20, W_ISO=72;
 
-  return `
+    return `
 <table role="presentation" cellpadding="0" cellspacing="0" border="0"
   style="border-collapse:collapse;font-family:'Lydia Sans',Arial,sans-serif;color:#111114;width:${W_TABLE}px;max-width:${W_TABLE}px;margin:0;">
 
-  <!-- Linha 1 (foto + seta + nome/cargo + logo) -->
   <tr style="line-height:1; font-size:0; vertical-align:top;">
     <td rowspan="3" valign="top" style="padding:0;">
       ${photo?`<img src="${photo}" width="${W_PHOTO}" style="display:block;height:auto;border-radius:999px;" alt="">`:``}
@@ -121,7 +117,7 @@ function signatureHTML(d){
     </td>
   </tr>
 
-  <!-- Linha “dupla” estável (gradiente) -->
+  <!-- Linha "dupla" estável (gradiente) -->
   <tr style="height:0; line-height:0; font-size:0;">
     <td style="height:0; line-height:0; font-size:0; padding:0;"></td>
     <td colspan="2" style="height:0; line-height:0; font-size:0; padding:6px 0 4px 0;">
@@ -135,7 +131,6 @@ function signatureHTML(d){
     </td>
   </tr>
 
-  <!-- Linha 3 (contactos) -->
   <tr>
     <td style="padding:0 8px 0 0;"></td>
 
@@ -185,21 +180,20 @@ function signatureHTML(d){
   </tr>
 </table>
 `.trim();
-}
+  }
 
-function render(){
-  const qs=paramsFromForm();
-  $('qs').textContent='?'+qs;
-  const d=Object.fromEntries(new URLSearchParams(qs));
-  if(!d.photo)d.photo="https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_headshot-filipa-freire.png";
-  $('sig').innerHTML=signatureHTML(d);
-}
+  function render(){
+    const qs=paramsFromForm();
+    $('qs').textContent='?'+qs;
+    const d=Object.fromEntries(new URLSearchParams(qs));
+    if(!d.photo) d.photo="https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_headshot-filipa-freire.png";
+    $('sig').innerHTML=signatureHTML(d);
+  }
 
-['btn-render','btn-copy','btn-open','btn-link'].forEach(id=>{
-  const el=$(id); if(!el)return;
-  if(id==='btn-render')el.addEventListener('click',e=>{e.preventDefault();render();});
-  if(id==='btn-copy')el.addEventListener('click',async()=>{
-    const html=$('sig').innerHTML;
+  // Eventos
+  document.getElementById('btn-render').addEventListener('click', e=>{ e.preventDefault(); render(); });
+  document.getElementById('btn-copy').addEventListener('click', async()=>{
+    const html=document.getElementById('sig').innerHTML;
     try{
       const blob=new Blob([html],{type:"text/html"});
       await navigator.clipboard.write([new ClipboardItem({"text/html":blob})]);
@@ -210,22 +204,23 @@ function render(){
       alert('HTML copiado (fallback).');
     }
   });
-  if(id==='btn-open')el.addEventListener('click',()=>{
+  document.getElementById('btn-open').addEventListener('click', ()=>{
     const qs=paramsFromForm();
-    const html=`<!doctype html><meta charset="utf-8"><title>Assinatura</title>${signatureHTML(Object.fromEntries(new URLSearchParams(qs)))}`;
+    const html='<!doctype html><meta charset="utf-8"><title>Assinatura</title>'+signatureHTML(Object.fromEntries(new URLSearchParams(qs)));
     const url=URL.createObjectURL(new Blob([html],{type:"text/html"}));
     window.open(url,"_blank","noopener");
   });
-  if(id==='btn-link')el.addEventListener('click',()=>{
+  document.getElementById('btn-link').addEventListener('click', ()=>{
     const qs=paramsFromForm();
-    const builder=\`\${location.origin}\${location.pathname}?\${qs}\`;
-    const solo=\`\${location.origin}\${location.pathname}?\${qs}&solo=1\`;
+    const builder=location.origin+location.pathname+'?'+qs;
+    const solo=location.origin+location.pathname+'?'+qs+'&solo=1';
     prompt("Link do builder (preenchido):",builder);
     prompt("Link standalone (para enviar ao colaborador):",solo);
   });
-});
 
-render();
+  // Render imediato ao abrir
+  render();
+})();
 </script>
 </body>
 </html>
