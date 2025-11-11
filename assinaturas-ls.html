@@ -13,6 +13,8 @@
   --bg:#fafafa;
 }
 body{
+  /* Se tiveres a Lydia Sans instalada localmente, o browser usa-a.
+     Se quiseres, depois adicionamos @font-face para servir a partir do GitHub. */
   font-family:"Lydia Sans","Inter",Arial,sans-serif;
   margin:0; padding:24px; background:var(--bg); color:#111;
 }
@@ -38,7 +40,7 @@ small.hint{color:#777; display:block; margin-top:4px;}
     <h1>Builder de Assinaturas — Landskill</h1>
     <label>Nome</label><input id="f-name" type="text" placeholder="Ex.: Filipa Freire">
     <label>Cargo</label><input id="f-role" type="text" placeholder="Ex.: Graphic Designer">
-    <label>T (telemóvel pessoal)</label><input id="f-tm" type="text" placeholder="Ex.: (+351) 9XX XXX XXX)">
+    <label>T (telemóvel pessoal)</label><input id="f-tm" type="text" placeholder="Ex.: (+351) 9XX XXX XXX">
     <label>URL da Foto (PNG círculo 240×240)</label>
     <input id="f-photo" type="url" value="https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_headshot-filipa-freire.png">
 
@@ -93,7 +95,7 @@ function paramsFromForm(){
 /* ===== TEMPLATE ===== */
 function signatureHTML(d){
   const name=d.name||"", role=d.role||"", tm=d.tm||"", photo=d.photo||"";
-  const W_PHOTO=120,H_PHOTO=120, W_ARROW=24,H_ARROW=24, W_LOGO=160,H_LOGO=40, W_ICON=24,H_ICON=24, W_ISO=120,H_ISO=60;
+  const W_PHOTO=120, W_ARROW=24, W_LOGO=160, W_ICON=24, W_ISO=120;
 
   return `
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-family:'Lydia Sans',Arial,sans-serif;color:#111114;width:100%;max-width:900px;">
@@ -101,20 +103,22 @@ function signatureHTML(d){
   <!-- ROW 1: foto (rowspan), seta, nome/cargo, logo -->
   <tr style="line-height:1; font-size:0; vertical-align:top;">
     <td rowspan="3" valign="top" style="padding:0 16px 0 0;">
-      ${photo?`<img src="${photo}" width="${W_PHOTO}" height="${H_PHOTO}" style="display:block;border-radius:999px;" alt="">`:``}
+      ${photo?`<img src="${photo}" width="${W_PHOTO}" style="display:block;height:auto;border-radius:999px;" alt="">`:``}
     </td>
 
     <td valign="top" style="padding:8px 20px 0 0;">
-      <img src="${BRAND.arrow}" width="${W_ARROW}" height="${W_ARROW}" style="display:block;" alt="">
+      <img src="${BRAND.arrow}" width="${W_ARROW}" style="display:block;height:auto;" alt="">
     </td>
 
     <td valign="top" style="padding:0 24px 0 0;">
-      <div style="font-size:22px;line-height:1;font-weight:800;color:#00C6B1;margin:0 0 6px 0;">${esc(name)}</div>
-      <div style="font-size:14px;line-height:1.1;font-weight:800;color:#353ED4;margin:0 0 10px 0;">${esc(role)}</div>
+      <!-- Nome: semi-bold (600) + mais espaço antes do cargo -->
+      <div style="font-size:22px; line-height:1; font-weight:600; color:#00C6B1; margin:0 0 10px 0;">${esc(name)}</div>
+      <!-- Cargo: regular (400) -->
+      <div style="font-size:14px; line-height:1.15; font-weight:400; color:#353ED4; margin:0 0 10px 0;">${esc(role)}</div>
     </td>
 
     <td valign="top" style="padding:4px 8px 0 0; text-align:center;">
-      <img src="${BRAND.logo}" width="${W_LOGO}" height="${H_LOGO}" style="display:block;margin:0 auto;" alt="LANDSKILL">
+      <img src="${BRAND.logo}" width="${W_LOGO}" style="display:block;margin:0 auto;height:auto;" alt="LANDSKILL">
     </td>
   </tr>
 
@@ -142,7 +146,7 @@ function signatureHTML(d){
           <td style="padding-top:6px;">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0">
               <tr>
-                <td style="padding-right:10px;"><img src="${BRAND.iconPhone}" width="${W_ICON}" height="${W_ICON}" style="display:block;" alt=""></td>
+                <td style="padding-right:10px;"><img src="${BRAND.iconPhone}" width="${W_ICON}" style="display:block;height:auto;" alt=""></td>
                 <td style="font-size:13px;font-weight:400;">${BRAND.officePhone}</td>
               </tr>
             </table>
@@ -152,7 +156,7 @@ function signatureHTML(d){
           <td style="padding-top:6px;">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0">
               <tr>
-                <td style="padding-right:10px;"><img src="${BRAND.iconLoc}" width="${W_ICON}" height="${W_ICON}" style="display:block;" alt=""></td>
+                <td style="padding-right:10px;"><img src="${BRAND.iconLoc}" width="${W_ICON}" style="display:block;height:auto;" alt=""></td>
                 <td style="font-size:13px;font-weight:400;">${BRAND.address}</td>
               </tr>
             </table>
@@ -163,15 +167,15 @@ function signatureHTML(d){
 
     <td valign="top" style="padding:8px 0 0 0; white-space:nowrap; text-align:center;">
       <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;">
-        <tr><td><img src="${BRAND.iso}" width="${W_ISO}" height="${H_ISO}" style="display:block;margin:0 auto;" alt="ISO 27017"></td></tr>
+        <tr><td><img src="${BRAND.iso}" width="${W_ISO}" style="display:block;margin:0 auto;height:auto;" alt="ISO 27017"></td></tr>
         <tr><td style="height:12px;"></td></tr>
         <tr>
           <td>
             <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;">
               <tr>
-                <td style="padding-right:10px;"><a href="${BRAND.linkWeb}" target="_blank" rel="noopener"><img src="${BRAND.iconWeb}" width="${W_ICON}" height="${W_ICON}" style="display:block;margin:0 auto;" alt="Website"></a></td>
-                <td style="padding-right:10px;"><a href="${BRAND.linkIG}" target="_blank" rel="noopener"><img src="${BRAND.iconIG}" width="${W_ICON}" height="${W_ICON}" style="display:block;margin:0 auto;" alt="Instagram"></a></td>
-                <td><a href="${BRAND.linkLI}" target="_blank" rel="noopener"><img src="${BRAND.iconLI}" width="${W_ICON}" height="${W_ICON}" style="display:block;margin:0 auto;" alt="LinkedIn"></a></td>
+                <td style="padding-right:10px;"><a href="${BRAND.linkWeb}" target="_blank" rel="noopener"><img src="${BRAND.iconWeb}" width="${W_ICON}" style="display:block;margin:0 auto;height:auto;" alt="Website"></a></td>
+                <td style="padding-right:10px;"><a href="${BRAND.linkIG}" target="_blank" rel="noopener"><img src="${BRAND.iconIG}" width="${W_ICON}" style="display:block;margin:0 auto;height:auto;" alt="Instagram"></a></td>
+                <td><a href="${BRAND.linkLI}" target="_blank" rel="noopener"><img src="${BRAND.iconLI}" width="${W_ICON}" style="display:block;margin:0 auto;height:auto;" alt="LinkedIn"></a></td>
               </tr>
             </table>
           </td>
