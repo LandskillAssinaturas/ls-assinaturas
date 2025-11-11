@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-PT">
->
+<head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Assinaturas – Landskill (Builder)</title>
@@ -48,7 +48,7 @@ small.hint{color:#777; display:block; margin-top:4px;}
       <button id="btn-open">Abrir versão standalone</button>
       <button id="btn-link">Gerar links</button>
     </div>
-    <small class="hint">Tamanhos: Foto 240×240 → mostra 120×auto | Ícones 48×48 → mostram 22×auto | Logo 280×70 → mostra 140×auto | ISO ~90×auto.</small>
+    <small class="hint">Tamanhos: Foto 240×240 → mostra 120×auto | Ícones 48×48 → mostram 22×auto | Logo ~120×auto | ISO ~80×auto.</small>
   </div>
 
   <div class="card">
@@ -92,7 +92,7 @@ function paramsFromForm(){
 
 function signatureHTML(d){
   const name=d.name||"", role=d.role||"", tm=d.tm||"", photo=d.photo||"";
-  const W_PHOTO=120, W_ARROW=24, W_LOGO=140, W_ICON=22, W_ISO=90;
+  const W_PHOTO=120, W_ARROW=24, W_LOGO=120, W_ICON=22, W_ISO=80;
 
   return `
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-family:'Lydia Sans',Arial,sans-serif;color:#111114;width:100%;max-width:900px;">
@@ -117,7 +117,7 @@ function signatureHTML(d){
     </td>
   </tr>
 
-  <!-- Linha 2: overlap real (linha esbatida por baixo e centradas) -->
+  <!-- Linha 2: overlap real (linha esbatida por baixo, até ao fim) -->
   <tr style="height:0; line-height:0; font-size:0;">
     <td style="height:0; line-height:0; font-size:0; padding:0;"></td>
     <td colspan="2" style="height:0; line-height:0; font-size:0; padding:6px 0 4px 0;">
@@ -138,28 +138,18 @@ function signatureHTML(d){
 
       <!--[if !mso]><!-->
       <div style="position:relative; height:5px; line-height:0;">
-        <!-- linha esbatida (por baixo) -->
+        <!-- linha esbatida (por baixo, até ao fim) -->
         <div style="
-          position:absolute;
-          top:50%;
-          left:0;
-          transform:translateY(-50%);
-          width:67%;
-          height:3px;
-          background:#CFEDEA;
-          border-radius:4px;
+          position:absolute; top:50%; transform:translateY(-50%);
+          left:33%; right:0; height:3px;
+          background:#CFEDEA; border-radius:4px;
         "></div>
 
-        <!-- linha verde (por cima, centrada e mais curta) -->
+        <!-- linha verde (por cima, mais curta) -->
         <div style="
-          position:absolute;
-          top:50%;
-          left:0;
-          transform:translateY(-50%);
-          width:38%;
-          height:4px;
-          background:#00C6B1;
-          border-radius:4px;
+          position:absolute; top:50%; transform:translateY(-50%);
+          left:0; width:38%; height:4px;
+          background:#00C6B1; border-radius:4px;
         "></div>
       </div>
       <!--<![endif]-->
