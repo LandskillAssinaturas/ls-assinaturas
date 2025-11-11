@@ -47,7 +47,7 @@
       <button id="btn-open">Abrir versão standalone</button>
       <button id="btn-link">Gerar links</button>
     </div>
-    <small class="hint">Tamanhos: Foto mostra 96×auto • Ícones 20×auto • Logo 110×auto • ISO 72×auto • Largura total 620 px.</small>
+    <small class="hint">Tamanhos: Foto mostra 60×auto • Ícones 12×auto • Logo 70×auto • ISO 48×auto • Largura total 480 px.</small>
   </div>
 
   <div class="card">
@@ -92,7 +92,7 @@
 
   function signatureHTML(d){
     const name=d.name||"", role=d.role||"", tm=d.tm||"", photo=d.photo||"";
-    const W_TABLE=620, W_PHOTO=96, W_ARROW=20, W_LOGO=110, W_ICON=20, W_ISO=72;
+    const W_TABLE=480, W_PHOTO=60, W_ARROW=14, W_LOGO=70, W_ICON=12, W_ISO=48;
 
     return `
 <table role="presentation" cellpadding="0" cellspacing="0" border="0"
@@ -103,13 +103,13 @@
       ${photo?`<img src="${photo}" width="${W_PHOTO}" style="display:block;height:auto;border-radius:999px;" alt="">`:``}
     </td>
 
-    <td valign="top" style="padding:0 12px 0 12px;">
+    <td valign="top" style="padding:0 10px 0 10px;">
       <img src="${BRAND.arrow}" width="${W_ARROW}" style="display:block;height:auto;" alt="">
     </td>
 
-    <td valign="top" style="padding:0 16px 0 0;">
-      <div style="font-size:18px; line-height:1; font-weight:600; color:#00C6B1; margin:0 0 6px 0;">${esc(name)}</div>
-      <div style="font-size:12px; line-height:1.15; font-weight:400; color:#353ED4; margin:0 0 8px 0;">${esc(role)}</div>
+    <td valign="top" style="padding:0 12px 0 0;">
+      <div style="font-size:14px; line-height:1; font-weight:600; color:#00C6B1; margin:0 0 4px 0;">${esc(name)}</div>
+      <div style="font-size:10px; line-height:1.15; font-weight:400; color:#353ED4; margin:0 0 6px 0;">${esc(role)}</div>
     </td>
 
     <td valign="middle" style="padding:2px 0 0 0; text-align:center; vertical-align:middle;">
@@ -120,10 +120,10 @@
   <!-- Linha "dupla" estável (gradiente) -->
   <tr style="height:0; line-height:0; font-size:0;">
     <td style="height:0; line-height:0; font-size:0; padding:0;"></td>
-    <td colspan="2" style="height:0; line-height:0; font-size:0; padding:6px 0 4px 0;">
+    <td colspan="2" style="height:0; line-height:0; font-size:0; padding:4px 0 3px 0;">
       <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%;border-collapse:collapse;">
         <tr>
-          <td style="height:4px;border-radius:3px;
+          <td style="height:3px;border-radius:2px;
             background:linear-gradient(90deg,#00C6B1 0%,#00C6B1 36%,#CFEDEA 36%,#CFEDEA 100%);">
           </td>
         </tr>
@@ -132,27 +132,27 @@
   </tr>
 
   <tr>
-    <td style="padding:0 8px 0 0;"></td>
+    <td style="padding:0 6px 0 0;"></td>
 
-    <td valign="top" style="padding:10px 16px 0 0;">
-      <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="font-size:12px;color:#111114;">
-        ${tm?`<tr><td style="font-size:13px;font-weight:700;">T: ${esc(tm)}</td></tr>`:""}
+    <td valign="top" style="padding:6px 12px 0 0;">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="font-size:10px;color:#111114;">
+        ${tm?`<tr><td style="font-size:11px;font-weight:700;">T: ${esc(tm)}</td></tr>`:""}
         <tr>
-          <td style="padding-top:8px;">
+          <td style="padding-top:6px;">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0">
               <tr>
-                <td style="padding-right:8px;"><img src="${BRAND.iconPhone}" width="${W_ICON}" style="display:block;height:auto;" alt=""></td>
-                <td style="font-size:12px;font-weight:400;">${BRAND.officePhone}</td>
+                <td style="padding-right:6px;"><img src="${BRAND.iconPhone}" width="${W_ICON}" style="display:block;height:auto;" alt=""></td>
+                <td style="font-size:10px;font-weight:400;">${BRAND.officePhone}</td>
               </tr>
             </table>
           </td>
         </tr>
         <tr>
-          <td style="padding-top:5px;">
+          <td style="padding-top:4px;">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0">
               <tr>
-                <td style="padding-right:8px;"><img src="${BRAND.iconLoc}" width="${W_ICON}" style="display:block;height:auto;" alt=""></td>
-                <td style="font-size:12px;font-weight:400;">${BRAND.address}</td>
+                <td style="padding-right:6px;"><img src="${BRAND.iconLoc}" width="${W_ICON}" style="display:block;height:auto;" alt=""></td>
+                <td style="font-size:10px;font-weight:400;">${BRAND.address}</td>
               </tr>
             </table>
           </td>
@@ -160,16 +160,16 @@
       </table>
     </td>
 
-    <td valign="top" style="padding:6px 0 0 0; text-align:center; white-space:nowrap;">
+    <td valign="top" style="padding:4px 0 0 0; text-align:center; white-space:nowrap;">
       <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;">
         <tr><td><img src="${BRAND.iso}" width="${W_ISO}" style="display:block;margin:0 auto;height:auto;" alt="ISO 27017"></td></tr>
-        <tr><td style="height:10px;"></td></tr>
+        <tr><td style="height:8px;"></td></tr>
         <tr>
           <td>
             <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;">
               <tr>
-                <td style="padding-right:8px;"><a href="${BRAND.linkWeb}" target="_blank" rel="noopener"><img src="${BRAND.iconWeb}" width="${W_ICON}" style="display:block;margin:0 auto;height:auto;" alt="Website"></a></td>
-                <td style="padding-right:8px;"><a href="${BRAND.linkIG}" target="_blank" rel="noopener"><img src="${BRAND.iconIG}" width="${W_ICON}" style="display:block;margin:0 auto;height:auto;" alt="Instagram"></a></td>
+                <td style="padding-right:6px;"><a href="${BRAND.linkWeb}" target="_blank" rel="noopener"><img src="${BRAND.iconWeb}" width="${W_ICON}" style="display:block;margin:0 auto;height:auto;" alt="Website"></a></td>
+                <td style="padding-right:6px;"><a href="${BRAND.linkIG}" target="_blank" rel="noopener"><img src="${BRAND.iconIG}" width="${W_ICON}" style="display:block;margin:0 auto;height:auto;" alt="Instagram"></a></td>
                 <td><a href="${BRAND.linkLI}" target="_blank" rel="noopener"><img src="${BRAND.iconLI}" width="${W_ICON}" style="display:block;margin:0 auto;height:auto;" alt="LinkedIn"></a></td>
               </tr>
             </table>
@@ -190,7 +190,6 @@
     $('sig').innerHTML=signatureHTML(d);
   }
 
-  // Eventos
   document.getElementById('btn-render').addEventListener('click', e=>{ e.preventDefault(); render(); });
   document.getElementById('btn-copy').addEventListener('click', async()=>{
     const html=document.getElementById('sig').innerHTML;
@@ -218,7 +217,6 @@
     prompt("Link standalone (para enviar ao colaborador):",solo);
   });
 
-  // Render imediato ao abrir
   render();
 })();
 </script>
