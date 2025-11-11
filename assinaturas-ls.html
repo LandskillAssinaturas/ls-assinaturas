@@ -48,7 +48,9 @@ small.hint{color:#777; display:block; margin-top:4px;}
       <button id="btn-open">Abrir versão standalone</button>
       <button id="btn-link">Gerar links</button>
     </div>
-    <small class="hint">Tamanhos: Foto 240×240 → mostra 120×auto | Ícones 48×48 → mostram 22×auto | Logo ~120×auto | ISO ~80×auto.</small>
+    <small class="hint">
+      Tamanhos: Foto mostra 96×auto • Ícones 20×auto • Logo 110×auto • ISO 72×auto • Largura total 620 px.
+    </small>
   </div>
 
   <div class="card">
@@ -67,7 +69,7 @@ small.hint{color:#777; display:block; margin-top:4px;}
 
 <script>
 const BRAND={
-  officePhone:"(+351) 215 947 950",
+  officePhone:"(+351) 214 139 860",
   address:"Rua do Proletariado Nº7 (Lote 1) Carnaxide, Portugal",
   linkWeb:"https://www.landskill.com/",
   linkIG:"https://www.instagram.com/landskill_it/",
@@ -92,95 +94,70 @@ function paramsFromForm(){
 
 function signatureHTML(d){
   const name=d.name||"", role=d.role||"", tm=d.tm||"", photo=d.photo||"";
-  const W_PHOTO=120, W_ARROW=24, W_LOGO=120, W_ICON=22, W_ISO=80;
+  // tamanhos menores para e-mail real
+  const W_TABLE=620, W_PHOTO=96, W_ARROW=20, W_LOGO=110, W_ICON=20, W_ISO=72;
 
   return `
 <table role="presentation" cellpadding="0" cellspacing="0" border="0"
-  style="border-collapse:collapse;font-family:'Lydia Sans',Arial,sans-serif;color:#111114;width:760px;max-width:760px;margin:0;">
+  style="border-collapse:collapse;font-family:'Lydia Sans',Arial,sans-serif;color:#111114;width:${W_TABLE}px;max-width:${W_TABLE}px;margin:0;">
 
-  <!-- Linha 1 -->
+  <!-- Linha 1 (foto + seta + nome/cargo + logo) -->
   <tr style="line-height:1; font-size:0; vertical-align:top;">
     <td rowspan="3" valign="top" style="padding:0;">
       ${photo?`<img src="${photo}" width="${W_PHOTO}" style="display:block;height:auto;border-radius:999px;" alt="">`:``}
     </td>
 
-    <td valign="top" style="padding:0 20px 0 0;">
+    <td valign="top" style="padding:0 12px 0 12px;">
       <img src="${BRAND.arrow}" width="${W_ARROW}" style="display:block;height:auto;" alt="">
     </td>
 
-    <td valign="top" style="padding:0 24px 0 0;">
-      <div style="font-size:22px; line-height:1; font-weight:600; color:#00C6B1; margin:0 0 10px 0;">${esc(name)}</div>
-      <div style="font-size:14px; line-height:1.15; font-weight:400; color:#353ED4; margin:0 0 10px 0;">${esc(role)}</div>
+    <td valign="top" style="padding:0 16px 0 0;">
+      <div style="font-size:18px; line-height:1; font-weight:600; color:#00C6B1; margin:0 0 6px 0;">${esc(name)}</div>
+      <div style="font-size:12px; line-height:1.15; font-weight:400; color:#353ED4; margin:0 0 8px 0;">${esc(role)}</div>
     </td>
 
-    <td valign="middle" style="padding:4px 8px 0 0; text-align:center; vertical-align:middle;">
+    <td valign="middle" style="padding:2px 0 0 0; text-align:center; vertical-align:middle;">
       <img src="${BRAND.logo}" width="${W_LOGO}" style="display:block;margin:0 auto;height:auto;" alt="LANDSKILL">
     </td>
   </tr>
 
-  <!-- Linha 2: overlap real (linha esbatida por baixo, até ao fim) -->
+  <!-- Linha “dupla” estável (gradiente) -->
   <tr style="height:0; line-height:0; font-size:0;">
     <td style="height:0; line-height:0; font-size:0; padding:0;"></td>
     <td colspan="2" style="height:0; line-height:0; font-size:0; padding:6px 0 4px 0;">
-      
-      <!-- Fallback Outlook -->
-      <!--[if mso]>
       <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%;border-collapse:collapse;">
         <tr>
-          <td style="width:38%; height:4px; background:#00C6B1; border-radius:4px;"></td>
-          <td style="width:62%; height:4px;"></td>
-        </tr>
-        <tr>
-          <td style="width:33%; height:3px;"></td>
-          <td style="width:67%; height:3px; background:#CFEDEA; border-radius:4px;"></td>
+          <td style="height:4px;border-radius:3px;
+            background:linear-gradient(90deg,#00C6B1 0%,#00C6B1 36%,#CFEDEA 36%,#CFEDEA 100%);">
+          </td>
         </tr>
       </table>
-      <![endif]-->
-
-      <!--[if !mso]><!-->
-      <div style="position:relative; height:5px; line-height:0;">
-        <!-- linha esbatida (por baixo, até ao fim) -->
-        <div style="
-          position:absolute; top:50%; transform:translateY(-50%);
-          left:33%; right:0; height:3px;
-          background:#CFEDEA; border-radius:4px;
-        "></div>
-
-        <!-- linha verde (por cima, mais curta) -->
-        <div style="
-          position:absolute; top:50%; transform:translateY(-50%);
-          left:0; width:38%; height:4px;
-          background:#00C6B1; border-radius:4px;
-        "></div>
-      </div>
-      <!--<![endif]-->
-
     </td>
   </tr>
 
-  <!-- Linha 3 -->
+  <!-- Linha 3 (contactos) -->
   <tr>
-    <td style="padding:0 12px 0 0;"></td>
+    <td style="padding:0 8px 0 0;"></td>
 
-    <td valign="top" style="padding:12px 24px 0 0;">
-      <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="font-size:13px;color:#111114;">
-        ${tm?`<tr><td style="font-size:14px;font-weight:700;">T: ${esc(tm)}</td></tr>`:""}
+    <td valign="top" style="padding:10px 16px 0 0;">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="font-size:12px;color:#111114;">
+        ${tm?`<tr><td style="font-size:13px;font-weight:700;">T: ${esc(tm)}</td></tr>`:""}
         <tr>
-          <td style="padding-top:10px;">
+          <td style="padding-top:8px;">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0">
               <tr>
-                <td style="padding-right:10px;"><img src="${BRAND.iconPhone}" width="${W_ICON}" style="display:block;height:auto;" alt=""></td>
-                <td style="font-size:13px;font-weight:400;">${BRAND.officePhone}</td>
+                <td style="padding-right:8px;"><img src="${BRAND.iconPhone}" width="${W_ICON}" style="display:block;height:auto;" alt=""></td>
+                <td style="font-size:12px;font-weight:400;">${BRAND.officePhone}</td>
               </tr>
             </table>
           </td>
         </tr>
         <tr>
-          <td style="padding-top:6px;">
+          <td style="padding-top:5px;">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0">
               <tr>
-                <td style="padding-right:10px;"><img src="${BRAND.iconLoc}" width="${W_ICON}" style="display:block;height:auto;" alt=""></td>
-                <td style="font-size:13px;font-weight:400;">${BRAND.address}</td>
+                <td style="padding-right:8px;"><img src="${BRAND.iconLoc}" width="${W_ICON}" style="display:block;height:auto;" alt=""></td>
+                <td style="font-size:12px;font-weight:400;">${BRAND.address}</td>
               </tr>
             </table>
           </td>
@@ -188,16 +165,16 @@ function signatureHTML(d){
       </table>
     </td>
 
-    <td valign="top" style="padding:8px 0 0 0; text-align:center; white-space:nowrap;">
+    <td valign="top" style="padding:6px 0 0 0; text-align:center; white-space:nowrap;">
       <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;">
         <tr><td><img src="${BRAND.iso}" width="${W_ISO}" style="display:block;margin:0 auto;height:auto;" alt="ISO 27017"></td></tr>
-        <tr><td style="height:12px;"></td></tr>
+        <tr><td style="height:10px;"></td></tr>
         <tr>
           <td>
             <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;">
               <tr>
-                <td style="padding-right:10px;"><a href="${BRAND.linkWeb}" target="_blank" rel="noopener"><img src="${BRAND.iconWeb}" width="${W_ICON}" style="display:block;margin:0 auto;height:auto;" alt="Website"></a></td>
-                <td style="padding-right:10px;"><a href="${BRAND.linkIG}" target="_blank" rel="noopener"><img src="${BRAND.iconIG}" width="${W_ICON}" style="display:block;margin:0 auto;height:auto;" alt="Instagram"></a></td>
+                <td style="padding-right:8px;"><a href="${BRAND.linkWeb}" target="_blank" rel="noopener"><img src="${BRAND.iconWeb}" width="${W_ICON}" style="display:block;margin:0 auto;height:auto;" alt="Website"></a></td>
+                <td style="padding-right:8px;"><a href="${BRAND.linkIG}" target="_blank" rel="noopener"><img src="${BRAND.iconIG}" width="${W_ICON}" style="display:block;margin:0 auto;height:auto;" alt="Instagram"></a></td>
                 <td><a href="${BRAND.linkLI}" target="_blank" rel="noopener"><img src="${BRAND.iconLI}" width="${W_ICON}" style="display:block;margin:0 auto;height:auto;" alt="LinkedIn"></a></td>
               </tr>
             </table>
@@ -241,8 +218,8 @@ function render(){
   });
   if(id==='btn-link')el.addEventListener('click',()=>{
     const qs=paramsFromForm();
-    const builder=`${location.origin}${location.pathname}?${qs}`;
-    const solo=`${location.origin}${location.pathname}?${qs}&solo=1`;
+    const builder=\`\${location.origin}\${location.pathname}?\${qs}\`;
+    const solo=\`\${location.origin}\${location.pathname}?\${qs}&solo=1\`;
     prompt("Link do builder (preenchido):",builder);
     prompt("Link standalone (para enviar ao colaborador):",solo);
   });
