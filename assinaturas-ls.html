@@ -47,7 +47,7 @@
       <button id="btn-open">Abrir versão standalone</button>
       <button id="btn-link">Gerar links</button>
     </div>
-    <small class="hint">Tamanhos: Foto mostra 60×auto • Ícones 12×auto • Logo 70×auto • ISO 48×auto • Largura total 480 px.</small>
+    <small class="hint">Tamanhos: Foto mostra 72×auto • Ícones 16×auto • Logo 80×auto • ISO 56×auto • Largura total 480 px.</small>
   </div>
 
   <div class="card">
@@ -92,7 +92,7 @@
 
   function signatureHTML(d){
     const name=d.name||"", role=d.role||"", tm=d.tm||"", photo=d.photo||"";
-    const W_TABLE=480, W_PHOTO=60, W_ARROW=14, W_LOGO=70, W_ICON=12, W_ISO=48;
+    const W_TABLE=480, W_PHOTO=72, W_ARROW=14, W_LOGO=80, W_ICON=16, W_ISO=56;
 
     return `
 <table role="presentation" cellpadding="0" cellspacing="0" border="0"
@@ -108,8 +108,8 @@
     </td>
 
     <td valign="top" style="padding:0 12px 0 0;">
-      <div style="font-size:14px; line-height:1; font-weight:600; color:#00C6B1; margin:0 0 4px 0;">${esc(name)}</div>
-      <div style="font-size:10px; line-height:1.15; font-weight:400; color:#353ED4; margin:0 0 6px 0;">${esc(role)}</div>
+      <div style="font-size:16px; line-height:1; font-weight:600; color:#00C6B1; margin:0 0 5px 0;">${esc(name)}</div>
+      <div style="font-size:12px; line-height:1.15; font-weight:400; color:#353ED4; margin:0 0 8px 0;">${esc(role)}</div>
     </td>
 
     <td valign="middle" style="padding:2px 0 0 0; text-align:center; vertical-align:middle;">
@@ -117,13 +117,12 @@
     </td>
   </tr>
 
-  <!-- Linha "dupla" estável (gradiente) -->
   <tr style="height:0; line-height:0; font-size:0;">
     <td style="height:0; line-height:0; font-size:0; padding:0;"></td>
     <td colspan="2" style="height:0; line-height:0; font-size:0; padding:4px 0 3px 0;">
       <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%;border-collapse:collapse;">
         <tr>
-          <td style="height:3px;border-radius:2px;
+          <td style="height:2px;border-radius:2px;
             background:linear-gradient(90deg,#00C6B1 0%,#00C6B1 36%,#CFEDEA 36%,#CFEDEA 100%);">
           </td>
         </tr>
