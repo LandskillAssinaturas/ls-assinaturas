@@ -13,8 +13,6 @@
   --bg:#fafafa;
 }
 body{
-  /* Se tiveres a Lydia Sans instalada localmente, o browser usa-a.
-     Se quiseres, depois adicionamos @font-face para servir a partir do GitHub. */
   font-family:"Lydia Sans","Inter",Arial,sans-serif;
   margin:0; padding:24px; background:var(--bg); color:#111;
 }
@@ -50,7 +48,7 @@ small.hint{color:#777; display:block; margin-top:4px;}
       <button id="btn-open">Abrir versão standalone</button>
       <button id="btn-link">Gerar links</button>
     </div>
-    <small class="hint">Tamanhos: Foto 240×240 → mostra 120×120 | Ícones 48×48 → mostram 24×24 | Logo 320×80 → mostra 160×40 | ISO 160×80 → mostra 120×60.</small>
+    <small class="hint">Tamanhos: Foto 240×240 → mostra 120×120 | Ícones 48×48 → mostram 24×24 | Logo 320×80 → mostra 160×40 | ISO 160×80 → mostra 100×auto.</small>
   </div>
 
   <div class="card">
@@ -92,15 +90,14 @@ function paramsFromForm(){
   return new URLSearchParams(d).toString();
 }
 
-/* ===== TEMPLATE ===== */
 function signatureHTML(d){
   const name=d.name||"", role=d.role||"", tm=d.tm||"", photo=d.photo||"";
-  const W_PHOTO=120, W_ARROW=24, W_LOGO=160, W_ICON=24, W_ISO=120;
+  const W_PHOTO=120, W_ARROW=24, W_LOGO=160, W_ICON=24, W_ISO=100;
 
   return `
 <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;font-family:'Lydia Sans',Arial,sans-serif;color:#111114;width:100%;max-width:900px;">
 
-  <!-- ROW 1: foto (rowspan), seta, nome/cargo, logo -->
+  <!-- Linha 1 -->
   <tr style="line-height:1; font-size:0; vertical-align:top;">
     <td rowspan="3" valign="top" style="padding:0 16px 0 0;">
       ${photo?`<img src="${photo}" width="${W_PHOTO}" style="display:block;height:auto;border-radius:999px;" alt="">`:``}
@@ -111,9 +108,7 @@ function signatureHTML(d){
     </td>
 
     <td valign="top" style="padding:0 24px 0 0;">
-      <!-- Nome: semi-bold (600) + mais espaço antes do cargo -->
       <div style="font-size:22px; line-height:1; font-weight:600; color:#00C6B1; margin:0 0 10px 0;">${esc(name)}</div>
-      <!-- Cargo: regular (400) -->
       <div style="font-size:14px; line-height:1.15; font-weight:400; color:#353ED4; margin:0 0 10px 0;">${esc(role)}</div>
     </td>
 
@@ -122,28 +117,26 @@ function signatureHTML(d){
     </td>
   </tr>
 
-  <!-- ROW 2: linha verde – começa no eixo do Nome/Cargo e vai até ao fim -->
+  <!-- Linha 2 -->
   <tr style="height:0; line-height:0; font-size:0;">
     <td style="height:0; line-height:0; font-size:0; padding:0;"></td>
     <td colspan="2" style="height:0; line-height:0; font-size:0; padding:6px 0 4px 0;">
       <table role="presentation" cellpadding="0" cellspacing="0" border="0"
              style="width:100%;border-collapse:collapse;margin-top:0;line-height:0;font-size:0;">
-        <tr style="height:0; line-height:0; font-size:0;">
-          <td style="height:4px;border-radius:2px;background:linear-gradient(90deg,#00C6B1 0%,#00C6B1 32%,#CFEDEA 32%,#CFEDEA 100%);"></td>
-        </tr>
+        <tr><td style="height:4px;border-radius:2px;background:linear-gradient(90deg,#00C6B1 0%,#00C6B1 32%,#CFEDEA 32%,#CFEDEA 100%);"></td></tr>
       </table>
     </td>
   </tr>
 
-  <!-- ROW 3: contactos -->
+  <!-- Linha 3 -->
   <tr>
     <td style="padding:0 12px 0 0;"></td>
 
-    <td valign="top" style="padding:8px 24px 0 0;">
+    <td valign="top" style="padding:12px 24px 0 0;">
       <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="font-size:13px;color:#111114;">
         ${tm?`<tr><td style="font-size:14px;font-weight:700;">T: ${esc(tm)}</td></tr>`:""}
         <tr>
-          <td style="padding-top:6px;">
+          <td style="padding-top:10px;">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0">
               <tr>
                 <td style="padding-right:10px;"><img src="${BRAND.iconPhone}" width="${W_ICON}" style="display:block;height:auto;" alt=""></td>
