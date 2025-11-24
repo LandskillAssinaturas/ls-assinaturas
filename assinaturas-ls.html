@@ -47,7 +47,7 @@
       <button id="btn-open">Abrir versão standalone</button>
       <button id="btn-link">Gerar links</button>
     </div>
-    <small class="hint">Tamanhos: Foto mostra 72×auto • Ícones 18×auto • Logo 92×auto • ISO 64×auto • Largura total 480 px.</small>
+    <small class="hint">Tamanhos: Foto 72px • Ícones 16px • Logo 92px • ISO 56px • Largura total 480px.</small>
   </div>
 
   <div class="card">
@@ -86,18 +86,23 @@
   const esc=t=>String(t||"").replace(/[<>&"]/g,s=>({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[s]));
 
   function paramsFromForm(){
-    const d={
+    return new URLSearchParams({
       name:$('f-name').value.trim(),
       role:$('f-role').value.trim(),
       tm:$('f-tm').value.trim(),
       photo:$('f-photo').value.trim()
-    };
-    return new URLSearchParams(d).toString();
+    }).toString();
   }
 
   function signatureHTML(d){
     const name=d.name||"", role=d.role||"", tm=d.tm||"", photo=d.photo||"";
-    const W_TABLE=480, W_PHOTO=72, W_ARROW=14, W_LOGO=92, W_ICON=18, W_ISO=64;
+
+    const W_TABLE=480,
+          W_PHOTO=72,
+          W_ARROW=14,
+          W_LOGO=92,   // ← tamanho correto
+          W_ICON=16,   // ← tamanho original restaurado
+          W_ISO=56;    // ← tamanho original restaurado
 
     return `
 <table role="presentation" cellpadding="0" cellspacing="0" border="0"
@@ -113,21 +118,22 @@
     </td>
 
     <td valign="top" style="padding:0 12px 0 0;">
-      <div style="font-size:16px; line-height:1; font-weight:600; color:#00C6B1; margin:0 0 5px 0;">${esc(name)}</div>
-      <div style="font-size:12px; line-height:1.15; font-weight:400; color:#353ED4; margin:0 0 8px 0;">${esc(role)}</div>
+      <div style="font-size:16px; font-weight:600; color:#00C6B1; margin:0 0 5px 0;">${esc(name)}</div>
+      <div style="font-size:12px; font-weight:400; color:#353ED4; margin:0 0 8px 0;">${esc(role)}</div>
     </td>
 
-    <td valign="middle" style="padding:2px 0 0 0; text-align:center; vertical-align:middle;">
+    <td valign="middle" style="padding:2px 0 0 0; text-align:center;">
       <img src="${BRAND.logo}" width="${W_LOGO}" style="display:block;margin:0 auto;height:auto;" alt="LANDSKILL">
     </td>
   </tr>
 
+  <!-- Linha verde -->
   <tr style="height:0; line-height:0; font-size:0;">
-    <td style="height:0; line-height:0; font-size:0; padding:0;"></td>
-    <td colspan="2" style="height:0; line-height:0; font-size:0; padding:4px 0 3px 0;">
-      <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="width:100%;border-collapse:collapse;">
+    <td></td>
+    <td colspan="2" style="padding:4px 0 3px 0;">
+      <table role="presentation" width="100%">
         <tr>
-          <td style="height:2px;border-radius:2px;
+          <td style="height:2px; border-radius:2px;
             background:linear-gradient(90deg,#00C6B1 0%,#00C6B1 36%,#CFEDEA 36%,#CFEDEA 100%);">
           </td>
         </tr>
@@ -135,28 +141,29 @@
     </td>
   </tr>
 
+  <!-- Contactos -->
   <tr>
-    <td style="padding:0 6px 0 0;"></td>
+    <td></td>
 
     <td valign="top" style="padding:6px 12px 0 0;">
-      <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="font-size:10px;color:#111114;">
+      <table role="presentation" style="font-size:10px;color:#111;">
         ${tm?`<tr><td style="font-size:11px;font-weight:700;">T: ${esc(tm)}</td></tr>`:""}
         <tr>
           <td style="padding-top:6px;">
-            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+            <table role="presentation">
               <tr>
-                <td style="padding-right:6px;"><img src="${BRAND.iconPhone}" width="${W_ICON}" style="display:block;height:auto;" alt=""></td>
-                <td style="font-size:10px;font-weight:400;">${BRAND.officePhone}</td>
+                <td style="padding-right:6px;"><img src="${BRAND.iconPhone}" width="${W_ICON}" style="display:block;" alt=""></td>
+                <td style="font-size:10px;">${BRAND.officePhone}</td>
               </tr>
             </table>
           </td>
         </tr>
         <tr>
           <td style="padding-top:4px;">
-            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+            <table role="presentation">
               <tr>
-                <td style="padding-right:6px;"><img src="${BRAND.iconLoc}" width="${W_ICON}" style="display:block;height:auto;" alt=""></td>
-                <td style="font-size:10px;font-weight:400;">${BRAND.address}</td>
+                <td style="padding-right:6px;"><img src="${BRAND.iconLoc}" width="${W_ICON}" style="display:block;" alt=""></td>
+                <td style="font-size:10px;">${BRAND.address}</td>
               </tr>
             </table>
           </td>
@@ -164,23 +171,25 @@
       </table>
     </td>
 
-    <td valign="top" style="padding:4px 0 0 0; text-align:center; white-space:nowrap;">
-      <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;">
-        <tr><td><img src="${BRAND.iso}" width="${W_ISO}" style="display:block;margin:0 auto;height:auto;" alt="ISO 27017"></td></tr>
+    <!-- Coluna direita -->
+    <td valign="top" style="padding:4px 0 0 0; text-align:center;">
+      <table role="presentation" style="margin:0 auto;">
+        <tr><td><img src="${BRAND.iso}" width="${W_ISO}" style="display:block;margin:0 auto;" alt=""></td></tr>
         <tr><td style="height:8px;"></td></tr>
         <tr>
           <td>
-            <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;">
+            <table role="presentation">
               <tr>
-                <td style="padding-right:6px;"><a href="${BRAND.linkWeb}" target="_blank" rel="noopener"><img src="${BRAND.iconWeb}" width="${W_ICON}" style="display:block;margin:0 auto;height:auto;" alt="Website"></a></td>
-                <td style="padding-right:6px;"><a href="${BRAND.linkIG}" target="_blank" rel="noopener"><img src="${BRAND.iconIG}" width="${W_ICON}" style="display:block;margin:0 auto;height:auto;" alt="Instagram"></a></td>
-                <td><a href="${BRAND.linkLI}" target="_blank" rel="noopener"><img src="${BRAND.iconLI}" width="${W_ICON}" style="display:block;margin:0 auto;height:auto;" alt="LinkedIn"></a></td>
+                <td style="padding-right:6px;"><a href="${BRAND.linkWeb}" target="_blank"><img src="${BRAND.iconWeb}" width="${W_ICON}" alt=""></a></td>
+                <td style="padding-right:6px;"><a href="${BRAND.linkIG}" target="_blank"><img src="${BRAND.iconIG}" width="${W_ICON}" alt=""></a></td>
+                <td><a href="${BRAND.linkLI}" target="_blank"><img src="${BRAND.iconLI}" width="${W_ICON}" alt=""></a></td>
               </tr>
             </table>
           </td>
         </tr>
       </table>
     </td>
+
   </tr>
 </table>
 `.trim();
@@ -189,36 +198,43 @@
   function render(){
     const qs=paramsFromForm();
     $('qs').textContent='?'+qs;
-    const d=Object.fromEntries(new URLSearchParams(qs));
-    if(!d.photo) d.photo="https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_headshot-filipa-freire.png";
-    $('sig').innerHTML=signatureHTML(d);
+    const params=Object.fromEntries(new URLSearchParams(qs));
+    if(!params.photo)
+      params.photo="https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_headshot-filipa-freire.png";
+    $('sig').innerHTML=signatureHTML(params);
   }
 
-  document.getElementById('btn-render').addEventListener('click', e=>{ e.preventDefault(); render(); });
+  document.getElementById('btn-render').addEventListener('click', e=>{
+    e.preventDefault(); render();
+  });
+
   document.getElementById('btn-copy').addEventListener('click', async()=>{
     const html=document.getElementById('sig').innerHTML;
     try{
       const blob=new Blob([html],{type:"text/html"});
       await navigator.clipboard.write([new ClipboardItem({"text/html":blob})]);
-      alert('Assinatura copiada!');
+      alert("Assinatura copiada!");
     }catch{
-      const ta=document.createElement('textarea'); ta.value=html; document.body.appendChild(ta);
-      ta.select(); document.execCommand('copy'); ta.remove();
-      alert('HTML copiado (fallback).');
+      const ta=document.createElement('textarea');
+      ta.value=html; document.body.appendChild(ta);
+      ta.select(); document.execCommand("copy");
+      ta.remove();
+      alert("HTML copiado (fallback).");
     }
   });
+
   document.getElementById('btn-open').addEventListener('click', ()=>{
     const qs=paramsFromForm();
-    const html='<!doctype html><meta charset="utf-8"><title>Assinatura</title>'+signatureHTML(Object.fromEntries(new URLSearchParams(qs)));
+    const html='<!doctype html><meta charset="utf-8"><title>Assinatura</title>'
+      + signatureHTML(Object.fromEntries(new URLSearchParams(qs)));
     const url=URL.createObjectURL(new Blob([html],{type:"text/html"}));
     window.open(url,"_blank","noopener");
   });
+
   document.getElementById('btn-link').addEventListener('click', ()=>{
     const qs=paramsFromForm();
-    const builder=location.origin+location.pathname+'?'+qs;
-    const solo=location.origin+location.pathname+'?'+qs+'&solo=1';
-    prompt("Link do builder (preenchido):",builder);
-    prompt("Link standalone (para enviar ao colaborador):",solo);
+    prompt("Link do builder:",location.origin+location.pathname+'?'+qs);
+    prompt("Link standalone:",location.origin+location.pathname+'?'+qs+'&solo=1');
   });
 
   render();
@@ -226,3 +242,4 @@
 </script>
 </body>
 </html>
+
