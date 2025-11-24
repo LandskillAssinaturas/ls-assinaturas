@@ -47,7 +47,7 @@
       <button id="btn-open">Abrir versão standalone</button>
       <button id="btn-link">Gerar links</button>
     </div>
-    <small class="hint">Tamanhos: Foto 72px • Ícones 16px • Logo 92px • ISO 56px • Largura total 480px.</small>
+    <small class="hint">Foto 90px • Ícones 16px • Logo 92px • ISO 56px • Largura total 480px.</small>
   </div>
 
   <div class="card">
@@ -98,11 +98,11 @@
     const name=d.name||"", role=d.role||"", tm=d.tm||"", photo=d.photo||"";
 
     const W_TABLE=480,
-          W_PHOTO=72,
+          W_PHOTO=90,   // ← NOVO TAMANHO DA FOTO
           W_ARROW=14,
-          W_LOGO=92,   // ← tamanho correto
-          W_ICON=16,   // ← tamanho original restaurado
-          W_ISO=56;    // ← tamanho original restaurado
+          W_LOGO=92,
+          W_ICON=16,
+          W_ISO=56;
 
     return `
 <table role="presentation" cellpadding="0" cellspacing="0" border="0"
@@ -118,36 +118,35 @@
     </td>
 
     <td valign="top" style="padding:0 12px 0 0;">
-      <div style="font-size:16px; font-weight:600; color:#00C6B1; margin:0 0 5px 0;">${esc(name)}</div>
-      <div style="font-size:12px; font-weight:400; color:#353ED4; margin:0 0 8px 0;">${esc(role)}</div>
+      <div style="font-size:16px;font-weight:600;color:#00C6B1;margin:0 0 5px 0;">${esc(name)}</div>
+      <div style="font-size:12px;font-weight:400;color:#353ED4;margin:0 0 8px 0;">${esc(role)}</div>
     </td>
 
     <td valign="middle" style="padding:2px 0 0 0; text-align:center;">
-      <img src="${BRAND.logo}" width="${W_LOGO}" style="display:block;margin:0 auto;height:auto;" alt="LANDSKILL">
+      <img src="${BRAND.logo}" width="${W_LOGO}" style="display:block;margin:0 auto;height:auto;" alt="">
     </td>
   </tr>
 
-  <!-- Linha verde -->
+  <!-- LINHA VERDE ÚNICA (1.5px) -->
   <tr style="height:0; line-height:0; font-size:0;">
     <td></td>
     <td colspan="2" style="padding:4px 0 3px 0;">
       <table role="presentation" width="100%">
         <tr>
-          <td style="height:2px; border-radius:2px;
-            background:linear-gradient(90deg,#00C6B1 0%,#00C6B1 36%,#CFEDEA 36%,#CFEDEA 100%);">
-          </td>
+          <td style="height:1.5px;background:#00C6B1;border-radius:2px;"></td>
         </tr>
       </table>
     </td>
   </tr>
 
-  <!-- Contactos -->
   <tr>
     <td></td>
 
+    <!-- CONTACTOS -->
     <td valign="top" style="padding:6px 12px 0 0;">
       <table role="presentation" style="font-size:10px;color:#111;">
         ${tm?`<tr><td style="font-size:11px;font-weight:700;">T: ${esc(tm)}</td></tr>`:""}
+
         <tr>
           <td style="padding-top:6px;">
             <table role="presentation">
@@ -158,8 +157,10 @@
             </table>
           </td>
         </tr>
+
+        <!-- MORADA (MENOS 4 PX) -->
         <tr>
-          <td style="padding-top:4px;">
+          <td style="padding-top:2px;"> 
             <table role="presentation">
               <tr>
                 <td style="padding-right:6px;"><img src="${BRAND.iconLoc}" width="${W_ICON}" style="display:block;" alt=""></td>
@@ -168,10 +169,11 @@
             </table>
           </td>
         </tr>
+
       </table>
     </td>
 
-    <!-- Coluna direita -->
+    <!-- COLUNA DIREITA -->
     <td valign="top" style="padding:4px 0 0 0; text-align:center;">
       <table role="presentation" style="margin:0 auto;">
         <tr><td><img src="${BRAND.iso}" width="${W_ISO}" style="display:block;margin:0 auto;" alt=""></td></tr>
