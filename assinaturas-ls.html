@@ -6,14 +6,28 @@
   <title>Assinaturas — Landskill (Builder)</title>
   <style>
     :root{ --ls-blue:#353ED4; --ls-teal:#00C6B1; --txt:#111114; --bg:#fafafa; }
-    body{ font-family:"Lydia Sans","Inter",Arial,sans-serif; margin:0; padding:24px; background:var(--bg); color:#111; }
-    .app{ max-width:960px; margin:0 auto; display:grid; gap:24px; grid-template-columns:1.1fr 1fr; }
-    .card{ background:#fff; border:1px solid #ddd; border-radius:16px; padding:18px; box-shadow:0 1px 4px rgba(0,0,0,.05); }
+    body{
+      font-family:"Lydia Sans","Inter",Arial,sans-serif;
+      margin:0; padding:24px; background:var(--bg); color:#111;
+    }
+    .app{
+      max-width:960px; margin:0 auto;
+      display:grid; gap:24px; grid-template-columns:1.1fr 1fr;
+    }
+    .card{
+      background:#fff; border:1px solid #ddd; border-radius:16px;
+      padding:18px; box-shadow:0 1px 4px rgba(0,0,0,.05);
+    }
     h1{ margin:0 0 8px; font-size:20px; }
     label{ display:block; font-size:13px; margin:10px 0 4px; }
-    input[type="text"],input[type="url"]{ width:100%; padding:10px 12px; border-radius:8px; border:1px solid #ccc; }
+    input[type="text"],input[type="url"]{
+      width:100%; padding:10px 12px; border-radius:8px; border:1px solid #ccc;
+    }
     .btns{ display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }
-    button{ padding:10px 14px; border-radius:8px; border:1px solid #ccc; background:#fff; cursor:pointer; font-weight:600; }
+    button{
+      padding:10px 14px; border-radius:8px; border:1px solid #ccc;
+      background:#fff; cursor:pointer; font-weight:600;
+    }
     button.primary{ background:var(--ls-blue); border-color:var(--ls-blue); color:#fff; }
     small.hint{ color:#777; display:block; margin-top:4px; }
     .preview-wrap{ display:flex; gap:18px; align-items:flex-start; flex-wrap:wrap; }
@@ -47,7 +61,9 @@
       <button id="btn-open">Abrir versão standalone</button>
       <button id="btn-link">Gerar links</button>
     </div>
-    <small class="hint">Foto 90px • Ícones 16px • Logo 92px • ISO 56px • Largura total 480px.</small>
+    <small class="hint">
+      Foto 105px • Ícones 16px • Logo 92px • ISO 56px • Largura total 480px.
+    </small>
   </div>
 
   <div class="card">
@@ -98,7 +114,7 @@
     const name=d.name||"", role=d.role||"", tm=d.tm||"", photo=d.photo||"";
 
     const W_TABLE=480,
-          W_PHOTO=90,   // ← NOVO TAMANHO DA FOTO
+          W_PHOTO=105,  // foto maior
           W_ARROW=14,
           W_LOGO=92,
           W_ICON=16,
@@ -127,13 +143,13 @@
     </td>
   </tr>
 
-  <!-- LINHA VERDE ÚNICA (1.5px) -->
+  <!-- LINHA VERDE ÚNICA (mais fininha: 1px) -->
   <tr style="height:0; line-height:0; font-size:0;">
     <td></td>
     <td colspan="2" style="padding:4px 0 3px 0;">
       <table role="presentation" width="100%">
         <tr>
-          <td style="height:1.5px;background:#00C6B1;border-radius:2px;"></td>
+          <td style="height:1px;background:#00C6B1;border-radius:1px;"></td>
         </tr>
       </table>
     </td>
@@ -158,9 +174,9 @@
           </td>
         </tr>
 
-        <!-- MORADA (MENOS 4 PX) -->
+        <!-- MORADA: ainda menos espaço → padding-top:0 -->
         <tr>
-          <td style="padding-top:2px;"> 
+          <td style="padding-top:0;">
             <table role="presentation">
               <tr>
                 <td style="padding-right:6px;"><img src="${BRAND.iconLoc}" width="${W_ICON}" style="display:block;" alt=""></td>
@@ -201,8 +217,9 @@
     const qs=paramsFromForm();
     $('qs').textContent='?'+qs;
     const params=Object.fromEntries(new URLSearchParams(qs));
-    if(!params.photo)
+    if(!params.photo){
       params.photo="https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_headshot-filipa-freire.png";
+    }
     $('sig').innerHTML=signatureHTML(params);
   }
 
@@ -244,4 +261,3 @@
 </script>
 </body>
 </html>
-
