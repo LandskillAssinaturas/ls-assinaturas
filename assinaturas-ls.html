@@ -119,18 +119,19 @@
     <label>T (telemóvel pessoal)</label>
     <input id="f-tm" type="text" placeholder="Ex.: (+351) 9XX XXX XXX" />
 
-    <label>URL da Foto (PNG círculo 240×240)</label>
+    <label>Nome do ficheiro da foto (PNG círculo 240×240 no GitHub)</label>
     <input
       id="f-photo"
-      type="url"
-      value="https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_headshot-filipa-freire.png"
+      type="text"
+      placeholder="Ex.: ls_headshot-filipa-freire.png"
+      value="ls_headshot-filipa-freire.png"
     />
 
     <div class="btns">
       <button class="primary" id="btn-render">Gerar / Atualizar</button>
       <button id="btn-copy">Copiar assinatura</button>
       <button id="btn-open">Abrir versão standalone</button>
-      <button id="btn-link">Gerar links</button>
+      <button id="btn-link">Gerar link</button>
     </div>
 
     <small class="hint">
@@ -168,7 +169,8 @@
     iconIG: "https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_icon-instagram.png",
     iconLI: "https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_icon-linkedin.png",
     iconPhone: "https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_telemovel.png",
-    iconLoc: "https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_local.png"
+    iconLoc: "https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_local.png",
+    photoBase: "https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/"
   };
 
   const $ = id => document.getElementById(id);
@@ -176,20 +178,11 @@
     { "<":"&lt;", ">":"&gt;", "&":"&amp;", '"':"&quot;" }[s]
   ));
 
-  function paramsFromForm(){
-    return new URLSearchParams({
-      name:  $('f-name').value.trim(),
-      role:  $('f-role').value.trim(),
-      tm:    $('f-tm').value.trim(),
-      photo: $('f-photo').value.trim()
-    }).toString();
-  }
-
   function signatureHTML(d){
     const name  = d.name  || "";
     const role  = d.role  || "";
     const tm    = d.tm    || "";
-    const photo = d.photo || "";
+    const photoField = d.photo || "";
 
     const W_TABLE = 480;
     const W_PHOTO = 105;
@@ -198,6 +191,18 @@
     const W_ICON  = 16;
     const W_ISO   = 56;
 
+    // Foto: aceita só nome de ficheiro ou URL completo; se vazio, usa default
+    let photoURL = "";
+    if (photoField) {
+      if (/^https?:\/\//i.test(photoField)) {
+        photoURL = photoField;
+      } else {
+        photoURL = BRAND.photoBase + photoField;
+      }
+    } else {
+      photoURL = BRAND.photoBase + "ls_headshot-filipa-freire.png";
+    }
+
     return (`
 <table role="presentation" cellpadding="0" cellspacing="0" border="0"
   style="border-collapse:collapse;font-family:'Lydia Sans',Arial,sans-serif;color:#111114;width:${W_TABLE}px;max-width:${W_TABLE}px;margin:0;">
@@ -205,8 +210,8 @@
   <tr style="line-height:1;font-size:0;vertical-align:top;">
     <!-- FOTO -->
     <td rowspan="3" valign="top" style="padding:0;">
-      ${photo
-        ? `<img src="${photo}" width="${W_PHOTO}" style="display:block;height:auto;border-radius:999px;" alt="">`
+      ${photoURL
+        ? `<img src="${photoURL}" width="${W_PHOTO}" style="display:block;height:auto;border-radius:999px;" alt="">`
         : ``}
     </td>
 
@@ -330,15 +335,31 @@
 `).trim();
   }
 
+  function paramsFromForm(){
+    return new URLSearchParams({
+      name:  $('f-name')?.value.trim()  || "",
+      role:  $('f-role')?.value.trim()  || "",
+      tm:    $('f-tm')?.value.trim()    || "",
+      photo: $('f-photo')?.value.trim() || ""
+    }).toString();
+  }
+
+  // Se o link tiver ?solo=1 → mostra só a assinatura (standalone)
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('solo') === '1') {
+    const data = Object.fromEntries(urlParams);
+    document.body.style.margin = "0";
+    document.body.style.padding = "16px";
+    document.body.style.background = "#ffffff";
+    document.body.innerHTML = signatureHTML(data);
+    return; // não carrega o builder nem listeners
+  }
+
   function render(){
     const qs = paramsFromForm();
     $('qs').textContent = '?' + qs;
 
     const params = Object.fromEntries(new URLSearchParams(qs));
-    if (!params.photo) {
-      params.photo = "https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_headshot-filipa-freire.png";
-    }
-
     $('sig').innerHTML = signatureHTML(params);
   }
 
@@ -376,9 +397,7 @@
   document.getElementById('btn-link').addEventListener('click', function(){
     const qs = paramsFromForm();
     const base = location.origin + location.pathname;
-    const builder = base + '?' + qs;
-    const solo    = base + '?' + qs + '&solo=1';
-    prompt("Link do builder (preenchido):", builder);
+    const solo = base + '?' + qs + '&solo=1';
     prompt("Link standalone (para enviar ao colaborador):", solo);
   });
 
