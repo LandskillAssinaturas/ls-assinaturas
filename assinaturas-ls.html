@@ -158,7 +158,7 @@
 (function(){
   const BRAND = {
     officePhone: "(+351) 214 139 860",
-    address: "Rua do Proletariado, 7<br>2794-076 Carnaxide",
+    address: "Rua do Proletariado, 7 2794-076 Carnaxide",
     linkWeb: "https://www.landskill.com/",
     linkIG: "https://www.instagram.com/landskill_it/",
     linkLI: "https://www.linkedin.com/company/101356039/",
@@ -208,31 +208,26 @@
   style="border-collapse:collapse;font-family:'Lydia Sans',Arial,sans-serif;color:#111114;width:${W_TABLE}px;max-width:${W_TABLE}px;margin:0;">
 
   <tr style="line-height:1;font-size:0;vertical-align:top;">
-    <!-- FOTO -->
-    <td rowspan="3" valign="middle" style="padding:0;">
+    <td rowspan="3" valign="top" style="padding:0;">
       ${photoURL
         ? `<img src="${photoURL}" width="${W_PHOTO}" style="display:block;height:auto;border-radius:999px;" alt="">`
         : ``}
     </td>
 
-    <!-- SETA -->
-    <td valign="middle" style="padding:0 6px 0 0;text-align:left;">
+    <td valign="top" style="padding:0 6px 0 0;text-align:left;">
       <img src="${BRAND.arrow}" width="${W_ARROW}" style="display:block;height:auto;" alt="">
     </td>
 
-    <!-- NOME + CARGO -->
     <td valign="top" style="padding:0 12px 0 0;">
       <div style="font-size:16px;font-weight:600;color:#00C6B1;margin:0 0 5px 0;">${esc(name)}</div>
       <div style="font-size:12px;font-weight:400;color:#353ED4;margin:0 0 8px 0;">${esc(role)}</div>
     </td>
 
-    <!-- LOGO -->
     <td valign="middle" style="padding:2px 0 0 0;text-align:center;">
       <img src="${BRAND.logo}" width="${W_LOGO}" style="display:block;margin:0 auto;height:auto;" alt="">
     </td>
   </tr>
 
-  <!-- LINHA VERDE -->
   <tr style="height:0;line-height:0;font-size:0;">
     <td></td>
     <td colspan="2" style="padding:4px 0 3px 0;">
@@ -244,7 +239,6 @@
     </td>
   </tr>
 
-  <!-- CONTACTOS -->
   <tr>
     <td></td>
 
@@ -258,7 +252,6 @@
           </td>
         </tr>` : ``}
 
-        <!-- FIXO -->
         <tr>
           <td style="padding-top:6px;">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0">
@@ -274,9 +267,8 @@
           </td>
         </tr>
 
-        <!-- MORADA -->
         <tr>
-          <td style="padding-top:0;">
+          <td style="padding-top:2px;">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0">
               <tr>
                 <td style="padding-right:6px;">
@@ -293,7 +285,6 @@
       </table>
     </td>
 
-    <!-- ISO + REDES -->
     <td valign="top" style="padding:4px 0 0 0;text-align:center;white-space:nowrap;">
       <table role="presentation" style="margin:0 auto;" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -342,7 +333,6 @@
     }).toString();
   }
 
-  // modo standalone (?solo=1)
   const urlParams = new URLSearchParams(window.location.search);
   if (urlParams.get('solo') === '1') {
     const data = Object.fromEntries(urlParams);
@@ -399,7 +389,6 @@
     prompt("Link standalone (para enviar ao colaborador):", solo);
   });
 
-  // render inicial
   render();
 })();
 </script>
