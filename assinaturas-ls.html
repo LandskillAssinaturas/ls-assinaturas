@@ -158,7 +158,7 @@
 (function(){
   const BRAND = {
     officePhone: "(+351) 214 139 860",
-    address: "Rua do Proletariado Nº7 (Lote 1) Carnaxide, Portugal",
+    address: "Rua do Proletariado, 7 2794-076 Carnaxide",
     linkWeb: "https://www.landskill.com/",
     linkIG: "https://www.instagram.com/landskill_it/",
     linkLI: "https://www.linkedin.com/company/101356039/",
@@ -191,7 +191,7 @@
     const W_ICON  = 16;
     const W_ISO   = 56;
 
-    // Foto: aceita só nome de ficheiro ou URL completo; se vazio, usa default
+    // Foto
     let photoURL = "";
     if (photoField) {
       if (/^https?:\/\//i.test(photoField)) {
@@ -208,31 +208,26 @@
   style="border-collapse:collapse;font-family:'Lydia Sans',Arial,sans-serif;color:#111114;width:${W_TABLE}px;max-width:${W_TABLE}px;margin:0;">
 
   <tr style="line-height:1;font-size:0;vertical-align:top;">
-    <!-- FOTO -->
     <td rowspan="3" valign="top" style="padding:0;">
       ${photoURL
         ? `<img src="${photoURL}" width="${W_PHOTO}" style="display:block;height:auto;border-radius:999px;" alt="">`
         : ``}
     </td>
 
-    <!-- SETA — ALINHADA À ESQUERDA -->
     <td valign="top" style="padding:0 6px 0 0;text-align:left;">
       <img src="${BRAND.arrow}" width="${W_ARROW}" style="display:block;height:auto;" alt="">
     </td>
 
-    <!-- NOME + CARGO -->
     <td valign="top" style="padding:0 12px 0 0;">
       <div style="font-size:16px;font-weight:600;color:#00C6B1;margin:0 0 5px 0;">${esc(name)}</div>
       <div style="font-size:12px;font-weight:400;color:#353ED4;margin:0 0 8px 0;">${esc(role)}</div>
     </td>
 
-    <!-- LOGO -->
     <td valign="middle" style="padding:2px 0 0 0;text-align:center;">
       <img src="${BRAND.logo}" width="${W_LOGO}" style="display:block;margin:0 auto;height:auto;" alt="">
     </td>
   </tr>
 
-  <!-- LINHA VERDE (1px) -->
   <tr style="height:0;line-height:0;font-size:0;">
     <td></td>
     <td colspan="2" style="padding:4px 0 3px 0;">
@@ -244,15 +239,12 @@
     </td>
   </tr>
 
-  <!-- CONTACTOS -->
   <tr>
     <td></td>
 
-    <!-- CONTACTOS -->
     <td valign="top" style="padding:6px 12px 0 0;">
       <table role="presentation" style="font-size:10px;color:#111;border-collapse:collapse;">
 
-        <!-- TM PESSOAL -->
         ${tm ? `
         <tr>
           <td style="font-size:11px;font-weight:700;">
@@ -260,7 +252,6 @@
           </td>
         </tr>` : ``}
 
-        <!-- FIXO (MAIS ESPAÇO A SEGUIR AO TM) -->
         <tr>
           <td style="padding-top:6px;">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0">
@@ -276,7 +267,6 @@
           </td>
         </tr>
 
-        <!-- MORADA (UM POUCO DE ESPAÇO TAMBÉM) -->
         <tr>
           <td style="padding-top:2px;">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0">
@@ -295,7 +285,6 @@
       </table>
     </td>
 
-    <!-- ISO + REDES -->
     <td valign="top" style="padding:4px 0 0 0;text-align:center;white-space:nowrap;">
       <table role="presentation" style="margin:0 auto;" cellpadding="0" cellspacing="0" border="0">
         <tr>
@@ -344,7 +333,6 @@
     }).toString();
   }
 
-  // Se o link tiver ?solo=1 → mostra só a assinatura (standalone)
   const urlParams = new URLSearchParams(window.location.search);
   if (urlParams.get('solo') === '1') {
     const data = Object.fromEntries(urlParams);
@@ -352,7 +340,7 @@
     document.body.style.padding = "16px";
     document.body.style.background = "#ffffff";
     document.body.innerHTML = signatureHTML(data);
-    return; // não carrega o builder nem listeners
+    return;
   }
 
   function render(){
@@ -401,7 +389,6 @@
     prompt("Link standalone (para enviar ao colaborador):", solo);
   });
 
-  // render inicial
   render();
 })();
 </script>
