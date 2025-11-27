@@ -191,7 +191,6 @@
     const W_ICON  = 16;
     const W_ISO   = 56;
 
-    // Foto
     let photoURL = "";
     if (photoField) {
       if (/^https?:\/\//i.test(photoField)) {
@@ -268,7 +267,7 @@
         </tr>
 
         <tr>
-          <td style="padding-top:2px;">
+          <td style="padding-top:0;">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0">
               <tr>
                 <td style="padding-right:6px;">
@@ -335,62 +334,4 @@
 
   const urlParams = new URLSearchParams(window.location.search);
   if (urlParams.get('solo') === '1') {
-    const data = Object.fromEntries(urlParams);
-    document.body.style.margin = "0";
-    document.body.style.padding = "16px";
-    document.body.style.background = "#ffffff";
-    document.body.innerHTML = signatureHTML(data);
-    return;
-  }
-
-  function render(){
-    const qs = paramsFromForm();
-    $('qs').textContent = '?' + qs;
-
-    const params = Object.fromEntries(new URLSearchParams(qs));
-    $('sig').innerHTML = signatureHTML(params);
-  }
-
-  document.getElementById('btn-render').addEventListener('click', function(e){
-    e.preventDefault();
-    render();
-  });
-
-  document.getElementById('btn-copy').addEventListener('click', async function(){
-    const html = document.getElementById('sig').innerHTML;
-    try{
-      const blob = new Blob([html], { type:"text/html" });
-      await navigator.clipboard.write([new ClipboardItem({ "text/html": blob })]);
-      alert("Assinatura copiada!");
-    }catch(err){
-      const ta = document.createElement('textarea');
-      ta.value = html;
-      document.body.appendChild(ta);
-      ta.select();
-      document.execCommand("copy");
-      ta.remove();
-      alert("HTML copiado (fallback).");
-    }
-  });
-
-  document.getElementById('btn-open').addEventListener('click', function(){
-    const qs = paramsFromForm();
-    const html =
-      '<!doctype html><meta charset="utf-8"><title>Assinatura</title>' +
-      signatureHTML(Object.fromEntries(new URLSearchParams(qs)));
-    const url = URL.createObjectURL(new Blob([html], { type:"text/html" }));
-    window.open(url, "_blank", "noopener");
-  });
-
-  document.getElementById('btn-link').addEventListener('click', function(){
-    const qs = paramsFromForm();
-    const base = location.origin + location.pathname;
-    const solo = base + '?' + qs + '&solo=1';
-    prompt("Link standalone (para enviar ao colaborador):", solo);
-  });
-
-  render();
-})();
-</script>
-</body>
-</html>
+    const data = Object.from
