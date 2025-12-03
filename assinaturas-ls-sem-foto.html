@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Assinaturas — Landskill (Builder)</title>
+  <style>
+    :root{
+      --ls-blue:#353ED4;
+      --ls-teal:#00C6B1;
+      --txt:#111114;
+      --bg:#fafafa;
+    }
+    body{
+      font-family:"Lydia Sans","Inter",Arial,sans-serif;
+      margin:0;
+      padding:24px;
+      background:var(--bg);
+      color:#111;
+    }
+    .app{
+      max-width:960px;
+      margin:0 auto;
+      display:grid;
+      gap:24px;
+      grid-template-columns:1.1fr 1fr;
+    }
+    .card{
+      background:#fff;
+      border:1px solid #ddd;
+      border-radius:16px;
+      padding:18px;
+      box-shadow:0 1px 4px rgba(0,0,0,.05);
+    }
+    h1{
+      margin:0 0 8px;
+      font-size:20px;
+    }
+    label{
+      display:block;
+      font-size:13px;
+      margin:10px 0 4px;
+    }
+    input[type="text"],
+    input[type="url"]{
+      width:100%;
+      padding:10px 12px;
+      border-radius:8px;
+      border:1px solid #ccc;
+      font-family:inherit;
+      font-size:14px;
+    }
+    .btns{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-top:14px;
+    }
+    button{
+      padding:10px 14px;
+      border-radius:8px;
+      border:1px solid #ccc;
+      background:#fff;
+      cursor:pointer;
+      font-weight:600;
+      font-family:inherit;
+      font-size:14px;
+    }
+    button.primary{
+      background:var(--ls-blue);
+      border-color:var(--ls-blue);
+      color:#fff;
+    }
+    small.hint{
+      color:#777;
+      display:block;
+      margin-top:4px;
+      font-size:11px;
+    }
+    .preview-wrap{
+      display:flex;
+      gap:18px;
+      align-items:flex-start;
+      flex-wrap:wrap;
+    }
+    .preview-card{
+      background:#fff;
+      border-radius:12px;
+      padding:16px;
+    }
+    .sig-title{
+      font-size:12px;
+      color:#555;
+      margin-bottom:8px;
+      font-weight:600;
+    }
+    .mono{
+      font-family:ui-monospace,Menlo,Consolas,monospace;
+      font-size:12px;
+      color:#555;
+      overflow:auto;
+      white-space:pre-wrap;
+      word-break:break-all;
+    }
+  </style>
+</head>
+<body>
+
+<div class="app">
+  <div class="card">
+    <h1>Builder de Assinaturas — Landskill</h1>
+
+    <label>Nome</label>
+    <input id="f-name" type="text" placeholder="Ex.: Filipa Freire" />
+
+    <label>Cargo</label>
+    <input id="f-role" type="text" placeholder="Ex.: Graphic Designer" />
+
+    <label>T (telemóvel pessoal)</label>
+    <input id="f-tm" type="text" placeholder="Ex.: (+351) 9XX XXX XXX" />
+
+    <div class="btns">
+      <button class="primary" id="btn-render">Gerar / Atualizar</button>
+      <button id="btn-copy">Copiar assinatura</button>
+      <button id="btn-open">Abrir versão standalone</button>
+      <button id="btn-link">Gerar link</button>
+    </div>
+
+    <small class="hint">
+      Ícones 16px • Logo 92px • ISO 56px • Largura total 480px.
+    </small>
+  </div>
+
+  <div class="card">
+    <div class="preview-wrap">
+      <div class="preview-card">
+        <div class="sig-title">Pré-visualização</div>
+        <div id="sig"></div>
+      </div>
+
+      <div class="card" style="min-width:260px">
+        <div style="font-size:12px;color:#555;margin-bottom:8px;">Query string atual</div>
+        <div id="qs" class="mono"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const BRAND = {
+    officePhone: "(+351) 214 139 860",
+    address: "Rua do Proletariado 7, 2794-076 Carnaxide",
+    linkWeb: "https://www.landskill.com/",
+    linkIG: "https://www.instagram.com/landskill_it/",
+    linkLI: "https://www.linkedin.com/company/101356039/",
+    logo: "https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_logo.png",
+    arrow: "https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_seta.png",
+    iso: "https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_certificacao-iso.png",
+    iconWeb: "https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_icon-website.png",
+    iconIG: "https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_icon-instagram.png",
+    iconLI: "https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_icon-linkedin.png",
+    iconPhone: "https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_telemovel.png",
+    iconLoc: "https://raw.githubusercontent.com/LandskillAssinaturas/ls-assinaturas/main/ls_local.png"
+  };
+
+  const $ = id => document.getElementById(id);
+  const esc = t => String(t || "").replace(/[<>&"]/g, s => (
+    { "<":"&lt;", ">":"&gt;", "&":"&amp;", '"':"&quot;" }[s]
+  ));
+
+  function signatureHTML(d){
+    const name  = d.name  || "";
+    const role  = d.role  || "";
+    const tm    = d.tm    || "";
+
+    const W_TABLE = 480;
+    const W_ARROW = 14;
+    const W_LOGO  = 92;
+    const W_ICON  = 16;
+    const W_ISO   = 56;
+
+    return (`
+<table role="presentation" cellpadding="0" cellspacing="0" border="0"
+  style="border-collapse:collapse;font-family:'Lydia Sans',Arial,sans-serif;color:#111114;width:${W_TABLE}px;max-width:${W_TABLE}px;margin:0;">
+
+  <tr style="line-height:1;font-size:0;vertical-align:top;">
+    <td valign="top" style="padding:0 6px 0 0;text-align:left;">
+      <img src="${BRAND.arrow}" width="${W_ARROW}" style="display:block;height:auto;" alt="">
+    </td>
+
+    <td valign="top" style="padding:0 12px 0 0;">
+      <div style="font-size:16px;font-weight:600;color:#00C6B1;margin:0 0 5px 0;">${esc(name)}</div>
+      <div style="font-size:12px;font-weight:400;color:#353ED4;margin:0 0 8px 0;">${esc(role)}</div>
+    </td>
+
+    <td valign="middle" style="padding:2px 0 0 0;text-align:center;">
+      <img src="${BRAND.logo}" width="${W_LOGO}" style="display:block;margin:0 auto;height:auto;" alt="">
+    </td>
+  </tr>
+
+  <tr style="height:0;line-height:0;font-size:0;">
+    <td></td>
+    <td colspan="2" style="padding:4px 0 3px 0;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td style="height:1px;border-radius:1px;background:#00C6B1;"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+    <td></td>
+
+    <td valign="top" style="padding:6px 12px 0 0;">
+      <table role="presentation" style="font-size:10px;color:#111;border-collapse:collapse;">
+
+        ${tm ? `
+        <tr>
+          <td style="font-size:11px;font-weight:700;">
+            T: ${esc(tm)}
+          </td>
+        </tr>` : ``}
+
+        <tr>
+          <td style="padding-top:6px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td style="padding-right:6px;">
+                  <img src="${BRAND.iconPhone}" width="${W_ICON}" style="display:block;height:auto;" alt="">
+                </td>
+                <td style="font-size:10px;font-weight:400;">
+                  ${BRAND.officePhone}
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <tr>
+          <td style="padding-top:2px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td style="padding-right:6px;">
+                  <img src="${BRAND.iconLoc}" width="${W_ICON}" style="display:block;height:auto;" alt="">
+                </td>
+                <td style="font-size:10px;font-weight:400;">
+                  ${BRAND.address}
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+      </table>
+    </td>
+
+    <td valign="top" style="padding:4px 0 0 0;text-align:center;white-space:nowrap;">
+      <table role="presentation" style="margin:0 auto;" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td>
+            <img src="${BRAND.iso}" width="${W_ISO}" style="display:block;margin:0 auto;height:auto;" alt="">
+          </td>
+        </tr>
+        <tr><td style="height:8px;"></td></tr>
+        <tr>
+          <td>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto;">
+              <tr>
+                <td style="padding-right:6px;">
+                  <a href="${BRAND.linkWeb}" target="_blank">
+                    <img src="${BRAND.iconWeb}" width="${W_ICON}" style="display:block;margin:0 auto;" alt="">
+                  </a>
+                </td>
+                <td style="padding-right:6px;">
+                  <a href="${BRAND.linkIG}" target="_blank">
+                    <img src="${BRAND.iconIG}" width="${W_ICON}" style="display:block;margin:0 auto;" alt="">
+                  </a>
+                </td>
+                <td>
+                  <a href="${BRAND.linkLI}" target="_blank">
+                    <img src="${BRAND.iconLI}" width="${W_ICON}" style="display:block;margin:0 auto;" alt="">
+                  </a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+</table>
+`).trim();
+  }
+
+  function paramsFromForm(){
+    return new URLSearchParams({
+      name:  $('f-name')?.value.trim()  || "",
+      role:  $('f-role')?.value.trim()  || "",
+      tm:    $('f-tm')?.value.trim()    || ""
+    }).toString();
+  }
+
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('solo') === '1') {
+    const data = Object.fromEntries(urlParams);
+    document.body.style.margin = "0";
+    document.body.style.padding = "16px";
+    document.body.style.background = "#ffffff";
+    document.body.innerHTML = signatureHTML(data);
+    return;
+  }
+
+  function render(){
+    const qs = paramsFromForm();
+    $('qs').textContent = '?' + qs;
+
+    const params = Object.fromEntries(new URLSearchParams(qs));
+    $('sig').innerHTML = signatureHTML(params);
+  }
+
+  document.getElementById('btn-render').addEventListener('click', function(e){
+    e.preventDefault();
+    render();
+  });
+
+  document.getElementById('btn-copy').addEventListener('click', async function(){
+    const html = document.getElementById('sig').innerHTML;
+    try{
+      const blob = new Blob([html], { type:"text/html" });
+      await navigator.clipboard.write([new ClipboardItem({ "text/html": blob })]);
+      alert("Assinatura copiada!");
+    }catch(err){
+      const ta = document.createElement('textarea');
+      ta.value = html;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      ta.remove();
+      alert("HTML copiado (fallback).");
+    }
+  });
+
+  document.getElementById('btn-open').addEventListener('click', function(){
+    const qs = paramsFromForm();
+    const html =
+      '<!doctype html><meta charset="utf-8"><title>Assinatura</title>' +
+      signatureHTML(Object.fromEntries(new URLSearchParams(qs)));
+    const url = URL.createObjectURL(new Blob([html], { type:"text/html" }));
+    window.open(url, "_blank", "noopener");
+  });
+
+  document.getElementById('btn-link').addEventListener('click', function(){
+    const qs = paramsFromForm();
+    const base = location.origin + location.pathname;
+    const solo = base + '?' + qs + '&solo=1';
+    prompt("Link standalone (para enviar ao colaborador):", solo);
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
