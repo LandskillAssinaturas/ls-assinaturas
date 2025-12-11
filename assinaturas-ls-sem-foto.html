@@ -122,8 +122,7 @@
     <div class="btns">
       <button class="primary" id="btn-render">Gerar / Atualizar</button>
       <button id="btn-copy">Copiar assinatura</button>
-      <button id="btn-open">Abrir versão standalone</button>
-      <button id="btn-link">Gerar link</button>
+      <!-- Botões "Abrir versão standalone" e "Gerar link" removidos -->
     </div>
 
     <small class="hint">
@@ -343,21 +342,7 @@
     }
   });
 
-  document.getElementById('btn-open').addEventListener('click', function(){
-    const qs = paramsFromForm();
-    const html =
-      '<!doctype html><meta charset="utf-8"><title>Assinatura</title>' +
-      signatureHTML(Object.fromEntries(new URLSearchParams(qs)));
-    const url = URL.createObjectURL(new Blob([html], { type:"text/html" }));
-    window.open(url, "_blank", "noopener");
-  });
-
-  document.getElementById('btn-link').addEventListener('click', function(){
-    const qs = paramsFromForm();
-    const base = location.origin + location.pathname;
-    const solo = base + '?' + qs + '&solo=1';
-    prompt("Link standalone (para enviar ao colaborador):", solo);
-  });
+  // Botões standalone/link removidos
 
   render();
 })();
