@@ -122,7 +122,7 @@
     <div class="btns">
       <button class="primary" id="btn-render">Gerar / Atualizar</button>
       <button id="btn-copy">Copiar assinatura</button>
-      <!-- Botões "Abrir versão standalone" e "Gerar link" removidos -->
+      <button id="btn-standalone">Abrir assinatura numa página isolada</button>
     </div>
 
     <small class="hint">
@@ -296,9 +296,9 @@
 
   function paramsFromForm(){
     return new URLSearchParams({
-      name:  $('f-name')?.value.trim()  || "",
-      role:  $('f-role')?.value.trim()  || "",
-      tm:    $('f-tm')?.value.trim()    || ""
+      name: $('f-name').value.trim(),
+      role: $('f-role').value.trim(),
+      tm:   $('f-tm').value.trim()
     }).toString();
   }
 
@@ -315,23 +315,22 @@
   function render(){
     const qs = paramsFromForm();
     $('qs').textContent = '?' + qs;
-
     const params = Object.fromEntries(new URLSearchParams(qs));
     $('sig').innerHTML = signatureHTML(params);
   }
 
-  document.getElementById('btn-render').addEventListener('click', function(e){
+  $('btn-render').addEventListener('click', e => {
     e.preventDefault();
     render();
   });
 
-  document.getElementById('btn-copy').addEventListener('click', async function(){
-    const html = document.getElementById('sig').innerHTML;
+  $('btn-copy').addEventListener('click', async () => {
+    const html = $('sig').innerHTML;
     try{
       const blob = new Blob([html], { type:"text/html" });
       await navigator.clipboard.write([new ClipboardItem({ "text/html": blob })]);
       alert("Assinatura copiada!");
-    }catch(err){
+    }catch{
       const ta = document.createElement('textarea');
       ta.value = html;
       document.body.appendChild(ta);
@@ -342,10 +341,15 @@
     }
   });
 
-  // Botões standalone/link removidos
+  $('btn-standalone').addEventListener('click', () => {
+    const qs = paramsFromForm();
+    const url = `${window.location.pathname}?${qs}&solo=1`;
+    window.open(url, '_blank');
+  });
 
   render();
 })();
 </script>
+
 </body>
 </html>
