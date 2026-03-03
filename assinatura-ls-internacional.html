@@ -32,15 +32,8 @@
       padding:18px;
       box-shadow:0 1px 4px rgba(0,0,0,.05);
     }
-    h1{
-      margin:0 0 8px;
-      font-size:20px;
-    }
-    label{
-      display:block;
-      font-size:13px;
-      margin:10px 0 4px;
-    }
+    h1{ margin:0 0 8px; font-size:20px; }
+    label{ display:block; font-size:13px; margin:10px 0 4px; }
     input[type="text"]{
       width:100%;
       padding:10px 12px;
@@ -49,12 +42,7 @@
       font-family:inherit;
       font-size:14px;
     }
-    .btns{
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-      margin-top:14px;
-    }
+    .btns{ display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }
     button{
       padding:10px 14px;
       border-radius:8px;
@@ -128,9 +116,6 @@
 
     <div class="btns">
       <button class="primary" id="btn-render">Gerar / Atualizar</button>
-      <button id="btn-copy">Copiar assinatura</button>
-      <button id="btn-open">Abrir versão standalone</button>
-      <button id="btn-link">Gerar link</button>
     </div>
   </div>
 
@@ -153,7 +138,7 @@
 (function(){
   const BRAND = {
     officePhone: "(+351) 214 139 860",
-    address: "Rue des Colonies 11, 1000, Bruxelles",
+    address: "Bélgica Rue des Colonies 11, 1000, Bruxelles",
     linkWeb: "https://www.landskill.com/",
     linkIG: "https://www.instagram.com/landskill_it/",
     linkLI: "https://www.linkedin.com/company/101356039/",
@@ -192,7 +177,6 @@
       ? (/^https?:\/\//i.test(photoField) ? photoField : BRAND.photoBase + photoField)
       : BRAND.photoBase + "ls_headshot-filipa-freire.png";
 
-    // 👇 Espaçamento ajustado (12px em vez de 18px)
     const personalJoined = [tm1, tm2, tm3]
       .filter(Boolean)
       .map(esc)
@@ -209,21 +193,26 @@
     return `
 <table role="presentation" cellpadding="0" cellspacing="0" border="0"
   style="border-collapse:collapse;font-family:'Lydia Sans',Arial,sans-serif;color:#111114;width:${W_TABLE}px;max-width:${W_TABLE}px;margin:0;">
-<tr style="line-height:1;font-size:0;vertical-align:top;">
+
+<tr style="vertical-align:top;">
 <td rowspan="3">
-<img src="${photoURL}" width="${W_PHOTO}" style="display:block;border-radius:999px;" alt="">
+<img src="${photoURL}" width="${W_PHOTO}" style="display:block;border-radius:999px;border:0;outline:none;" alt="">
 </td>
+
 <td style="padding:0 6px 0 0;">
-<img src="${BRAND.arrow}" width="${W_ARROW}" style="display:block;" alt="">
+<img src="${BRAND.arrow}" width="${W_ARROW}" style="display:block;border:0;outline:none;" alt="">
 </td>
+
 <td style="padding:0 12px 0 0;">
 <div style="font-size:16px;font-weight:600;color:#00C6B1;margin-bottom:5px;">${esc(name)}</div>
 <div style="font-size:12px;color:#353ED4;margin-bottom:8px;">${esc(role)}</div>
 </td>
+
 <td style="text-align:center;">
-<img src="${BRAND.logo}" width="${W_LOGO}" style="display:block;margin:0 auto;" alt="">
+<img src="${BRAND.logo}" width="${W_LOGO}" style="display:block;margin:0 auto;border:0;outline:none;" alt="">
 </td>
 </tr>
+
 <tr>
 <td></td>
 <td colspan="2" style="padding:4px 0;">
@@ -232,38 +221,44 @@
 </table>
 </td>
 </tr>
+
 <tr>
 <td></td>
 <td style="padding:6px 12px 0 0;">
 <table style="font-size:10px;border-collapse:collapse;">
 ${personalLine}
+
 <tr>
 <td style="padding-top:6px;">
-<img src="${BRAND.iconPhone}" width="${W_ICON}" style="vertical-align:middle;margin-right:6px;">
+<img src="${BRAND.iconPhone}" width="${W_ICON}" style="vertical-align:middle;margin-right:6px;border:0;outline:none;">
 ${BRAND.officePhone}
 </td>
 </tr>
+
 <tr>
 <td style="padding-top:2px;">
-<img src="${BRAND.iconLoc}" width="${W_ICON}" style="vertical-align:middle;margin-right:6px;">
+<img src="${BRAND.iconLoc}" width="${W_ICON}" style="vertical-align:middle;margin-right:6px;border:0;outline:none;">
 ${BRAND.address}
 </td>
 </tr>
+
 </table>
 </td>
+
 <td style="text-align:center;">
-<img src="${BRAND.iso}" width="${W_ISO}" style="display:block;margin:0 auto 8px;">
-<a href="${BRAND.linkWeb}" target="_blank">
-<img src="${BRAND.iconWeb}" width="${W_ICON}" style="margin-right:6px;">
+<img src="${BRAND.iso}" width="${W_ISO}" style="display:block;margin:0 auto 8px;border:0;outline:none;">
+<a href="${BRAND.linkWeb}" target="_blank" style="text-decoration:none;">
+<img src="${BRAND.iconWeb}" width="${W_ICON}" style="border:0;outline:none;text-decoration:none;margin-right:6px;">
 </a>
-<a href="${BRAND.linkIG}" target="_blank">
-<img src="${BRAND.iconIG}" width="${W_ICON}" style="margin-right:6px;">
+<a href="${BRAND.linkIG}" target="_blank" style="text-decoration:none;">
+<img src="${BRAND.iconIG}" width="${W_ICON}" style="border:0;outline:none;text-decoration:none;margin-right:6px;">
 </a>
-<a href="${BRAND.linkLI}" target="_blank">
-<img src="${BRAND.iconLI}" width="${W_ICON}">
+<a href="${BRAND.linkLI}" target="_blank" style="text-decoration:none;">
+<img src="${BRAND.iconLI}" width="${W_ICON}" style="border:0;outline:none;text-decoration:none;">
 </a>
 </td>
 </tr>
+
 </table>
 `;
   }
