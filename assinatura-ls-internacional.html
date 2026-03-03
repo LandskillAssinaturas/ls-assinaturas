@@ -126,10 +126,6 @@
       <button id="btn-open">Abrir versão standalone</button>
       <button id="btn-link">Gerar link</button>
     </div>
-
-    <small class="hint">
-      O link “standalone” abre só a assinatura (útil para enviar).
-    </small>
   </div>
 
   <div class="card">
@@ -150,7 +146,6 @@
 <script>
 (function(){
   const BRAND = {
-    officePhone: "(+351) 214 139 860",
     address: "Rue des Colonies 11, 1000, Bruxelles",
     linkWeb: "https://www.landskill.com/",
     linkIG: "https://www.instagram.com/landskill_it/",
@@ -161,7 +156,6 @@
     iconWeb: "https://www.landskill.com/signatures/ls_icon-website.png",
     iconIG: "https://www.landskill.com/signatures/ls_icon-instagram.png",
     iconLI: "https://www.landskill.com/signatures/ls_icon-linkedin.png",
-    iconPhone: "https://www.landskill.com/signatures/ls_telemovel.png",
     iconLoc: "https://www.landskill.com/signatures/ls_local.png",
     photoBase: "https://www.landskill.com/signatures/"
   };
@@ -243,13 +237,6 @@ ${personalLine}
 
 <tr>
 <td style="padding-top:6px;">
-<img src="${BRAND.iconPhone}" width="${W_ICON}" style="vertical-align:middle;margin-right:6px;border:0;outline:none;">
-${BRAND.officePhone}
-</td>
-</tr>
-
-<tr>
-<td style="padding-top:2px;">
 <img src="${BRAND.iconLoc}" width="${W_ICON}" style="vertical-align:middle;margin-right:6px;border:0;outline:none;">
 ${BRAND.address}
 </td>
@@ -261,13 +248,13 @@ ${BRAND.address}
 <td style="text-align:center;">
 <img src="${BRAND.iso}" width="${W_ISO}" style="display:block;margin:0 auto 8px;border:0;outline:none;">
 <a href="${BRAND.linkWeb}" target="_blank" style="text-decoration:none;">
-<img src="${BRAND.iconWeb}" width="${W_ICON}" style="border:0;outline:none;text-decoration:none;margin-right:6px;">
+<img src="${BRAND.iconWeb}" width="${W_ICON}" style="border:0;outline:none;margin-right:6px;">
 </a>
 <a href="${BRAND.linkIG}" target="_blank" style="text-decoration:none;">
-<img src="${BRAND.iconIG}" width="${W_ICON}" style="border:0;outline:none;text-decoration:none;margin-right:6px;">
+<img src="${BRAND.iconIG}" width="${W_ICON}" style="border:0;outline:none;margin-right:6px;">
 </a>
 <a href="${BRAND.linkLI}" target="_blank" style="text-decoration:none;">
-<img src="${BRAND.iconLI}" width="${W_ICON}" style="border:0;outline:none;text-decoration:none;">
+<img src="${BRAND.iconLI}" width="${W_ICON}" style="border:0;outline:none;">
 </a>
 </td>
 </tr>
@@ -278,12 +265,12 @@ ${BRAND.address}
 
   function paramsFromForm(){
     return new URLSearchParams({
-      name:  $('f-name')?.value.trim()  || "",
-      role:  $('f-role')?.value.trim()  || "",
-      tm1:   $('f-tm1')?.value.trim()   || "",
-      tm2:   $('f-tm2')?.value.trim()   || "",
-      tm3:   $('f-tm3')?.value.trim()   || "",
-      photo: $('f-photo')?.value.trim() || ""
+      name:$('f-name').value,
+      role:$('f-role').value,
+      tm1:$('f-tm1').value,
+      tm2:$('f-tm2').value,
+      tm3:$('f-tm3').value,
+      photo:$('f-photo').value
     }).toString();
   }
 
@@ -298,10 +285,10 @@ ${BRAND.address}
   }
 
   function render(){
-    const qs = paramsFromForm();
-    $('qs').textContent = '?' + qs;
-    const params = Object.fromEntries(new URLSearchParams(qs));
-    $('sig').innerHTML = signatureHTML(params);
+    const qs=paramsFromForm();
+    $('qs').textContent='?'+qs;
+    const params=Object.fromEntries(new URLSearchParams(qs));
+    $('sig').innerHTML=signatureHTML(params);
   }
 
   document.getElementById('btn-render').addEventListener('click', function(e){
@@ -311,19 +298,9 @@ ${BRAND.address}
 
   document.getElementById('btn-copy').addEventListener('click', async function(){
     const html = document.getElementById('sig').innerHTML;
-    try{
-      const blob = new Blob([html], { type:"text/html" });
-      await navigator.clipboard.write([new ClipboardItem({ "text/html": blob })]);
-      alert("Assinatura copiada!");
-    }catch(err){
-      const ta = document.createElement('textarea');
-      ta.value = html;
-      document.body.appendChild(ta);
-      ta.select();
-      document.execCommand("copy");
-      ta.remove();
-      alert("HTML copiado (fallback).");
-    }
+    const blob = new Blob([html], { type:"text/html" });
+    await navigator.clipboard.write([new ClipboardItem({ "text/html": blob })]);
+    alert("Assinatura copiada!");
   });
 
   document.getElementById('btn-open').addEventListener('click', function(){
