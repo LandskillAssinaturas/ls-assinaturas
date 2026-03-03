@@ -58,12 +58,6 @@
       border-color:var(--ls-blue);
       color:#fff;
     }
-    small.hint{
-      color:#777;
-      display:block;
-      margin-top:6px;
-      font-size:11px;
-    }
     .preview-wrap{
       display:flex;
       gap:18px;
@@ -265,15 +259,16 @@ ${BRAND.address}
 
   function paramsFromForm(){
     return new URLSearchParams({
-      name:$('f-name').value,
-      role:$('f-role').value,
-      tm1:$('f-tm1').value,
-      tm2:$('f-tm2').value,
-      tm3:$('f-tm3').value,
-      photo:$('f-photo').value
+      name:  $('f-name')?.value.trim()  || "",
+      role:  $('f-role')?.value.trim()  || "",
+      tm1:   $('f-tm1')?.value.trim()   || "",
+      tm2:   $('f-tm2')?.value.trim()   || "",
+      tm3:   $('f-tm3')?.value.trim()   || "",
+      photo: $('f-photo')?.value.trim() || ""
     }).toString();
   }
 
+  // Standalone via ?...&solo=1
   const urlParams = new URLSearchParams(window.location.search);
   if (urlParams.get('solo') === '1') {
     const data = Object.fromEntries(urlParams);
@@ -285,10 +280,10 @@ ${BRAND.address}
   }
 
   function render(){
-    const qs=paramsFromForm();
-    $('qs').textContent='?'+qs;
-    const params=Object.fromEntries(new URLSearchParams(qs));
-    $('sig').innerHTML=signatureHTML(params);
+    const qs = paramsFromForm();
+    $('qs').textContent = '?' + qs;
+    const params = Object.fromEntries(new URLSearchParams(qs));
+    $('sig').innerHTML = signatureHTML(params);
   }
 
   document.getElementById('btn-render').addEventListener('click', function(e){
@@ -298,9 +293,19 @@ ${BRAND.address}
 
   document.getElementById('btn-copy').addEventListener('click', async function(){
     const html = document.getElementById('sig').innerHTML;
-    const blob = new Blob([html], { type:"text/html" });
-    await navigator.clipboard.write([new ClipboardItem({ "text/html": blob })]);
-    alert("Assinatura copiada!");
+    try{
+      const blob = new Blob([html], { type:"text/html" });
+      await navigator.clipboard.write([new ClipboardItem({ "text/html": blob })]);
+      alert("Assinatura copiada!");
+    }catch(err){
+      const ta = document.createElement('textarea');
+      ta.value = html;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      ta.remove();
+      alert("HTML copiado (fallback).");
+    }
   });
 
   document.getElementById('btn-open').addEventListener('click', function(){
@@ -312,11 +317,30 @@ ${BRAND.address}
     window.open(url, "_blank", "noopener");
   });
 
+  // ✅ Gerar link que funciona sempre
   document.getElementById('btn-link').addEventListener('click', function(){
     const qs = paramsFromForm();
-    const base = location.origin + location.pathname;
-    const solo = base + '?' + qs + '&solo=1';
-    prompt("Link standalone (para enviar ao colaborador):", solo);
+    const isHttp = window.location.protocol === 'http:' || window.location.protocol === 'https:';
+
+    // Quando está publicado (GitHub Pages / domínio), gera o link real e funcional
+    if (isHttp) {
+      const base = window.location.href.split('?')[0].split('#')[0];
+      const solo = qs ? `${base}?${qs}&solo=1` : `${base}?solo=1`;
+      prompt("Link standalone (para enviar ao colaborador):", solo);
+      return;
+    }
+
+    // Quando está local (file:///), não existe URL público para “funcionar” noutra pessoa
+    // -> damos 2 coisas: (1) link local que abre no teu PC (2) link online esperado (quando publicado)
+    const localBase = window.location.href.split('?')[0].split('#')[0];
+    const localSolo = qs ? `${localBase}?${qs}&solo=1` : `${localBase}?solo=1`;
+
+    const onlineHint =
+      "Publica este ficheiro no GitHub Pages (ou abre-o pelo URL do repo). " +
+      "Depois o botão gera um link online para partilhar.";
+
+    prompt("Estás a abrir localmente (file:///). Este link abre no teu PC:", localSolo);
+    alert(onlineHint);
   });
 
   render();
